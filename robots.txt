@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /portfolio.html
+Allow: /style.css
+Allow: /logo.svg
+Allow: /financial-policies.html
+Allow: /work-policies.html
+
+# منع فهرسة الصفحات الحساسة
+Disallow: /admin.html
+Disallow: /dashboard.html
+Disallow: /review.html
+Disallow: /firebase-config.js
+Disallow: /.env
+Disallow: /api/
+
+# إضافة خريطة الموقع
+Sitemap: https://3lismaeel.xyz/sitemap.xml
+
+# تحديد النطاق
+Host: 3lismaeel.xyz

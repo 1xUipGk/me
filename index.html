@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-trans="pageTitle">علي اسماعيل - مصمم جرافيك</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .footer-links h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links ul li a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary);
+            transform: translateX(-8px);
+        }
+
+        .footer-links ul li a:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-links {
+                text-align: center;
+            }
+
+            .footer-links h3::after {
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            .footer-links ul li a {
+                justify-content: center;
+            }
+
+            .footer-links ul li a:hover {
+                transform: translateX(0);
+            }
+        }
+
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            gap: 20px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .testimonials-container {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+        }
+
+        .testimonial-card {
+            min-width: calc(33.333% - 16px);
+            flex: 0 0 calc(33.333% - 16px);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            scroll-snap-align: start;
+            opacity: 0.7;
+            transform: scale(0.95);
+        }
+
+        .testimonial-card.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* تنسيق قسم التقييمات */
+        .testimonials-slider {
+            position: relative;
+            padding: 0 40px;
+            margin: 40px 0;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            opacity: 0.7;
+        }
+
+        .nav-btn:hover {
+            background: #ff6b00;
+            transform: translateY(-50%) scale(1.1);
+            opacity: 1;
+        }
+
+        .prev-btn {
+            right: 0;
+        }
+
+        .next-btn {
+            left: 0;
+        }
+
+        .testimonial-card {
+            min-width: 300px;
+            flex: 0 0 300px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-slider {
+                padding: 0 30px;
+            }
+
+            .nav-btn {
+                width: 32px;
+                height: 32px;
+            }
+
+            .testimonial-card {
+                min-width: 260px;
+                flex: 0 0 260px;
+            }
+        }
+
+        .testimonials-container {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+        }
+
+        .testimonial-card {
+            min-width: calc(33.333% - 16px);
+            flex: 0 0 calc(33.333% - 16px);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 992px) {
+            .testimonial-card {
+                min-width: calc(50% - 12px);
+                flex: 0 0 calc(50% - 12px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-card {
+                min-width: calc(100% - 8px);
+                flex: 0 0 calc(100% - 8px);
+            }
+        }
+
+        /* تنسيق قسم الأسئلة الشائعة */
+        .faq {
+            padding: 80px 0;
+            background: linear-gradient(180deg, transparent, rgba(255, 77, 0, 0.03));
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 24px;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
+        }
+
+        .faq-question {
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .faq-question i {
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 24px;
+            height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 24px 24px;
+            height: auto;
+            opacity: 1;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .faq {
+                padding: 60px 0;
+            }
+
+            .faq-grid {
+                gap: 16px;
+                margin: 30px auto 0;
+            }
+
+            .faq-question {
+                padding: 20px;
+            }
+
+            .faq-question h3 {
+                font-size: 16px;
+            }
+
+            .faq-answer {
+                padding: 0 20px;
+            }
+
+            .faq-item.active .faq-answer {
+                padding: 0 20px 20px;
+            }
+        }
+
+        .design-text {
+            display: inline-block;
+            position: relative;
+            color: var(--primary);
+            font-family: 'Vazirmatn', monospace;
+            font-weight: 600;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            margin-left: 4px;
+            background-color: var(--primary);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+
+        .design-text {
+            display: inline-block;
+            position: relative;
+            color: white;
+            font-family: 'Vazirmatn', monospace;
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--primary);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: var(--primary);
+            margin-right: 4px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+
+        #typewriter {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="logo.svg" alt="" data-trans="logoAlt">
+            </div>
+            <div class="nav-items">
+                <button class="lang-btn">
+                    <span>EN</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </button>
+                <a href="#contact" class="contact-btn" data-trans="navContactBtn">تواصل معي</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>
+                <span data-trans="heroTitle">مصمم جرافيك محترف</span><br>
+                <span class="design-text">
+                    <span id="typewriter"></span>
+                    <span class="cursor"></span>
+                </span>
+            </h1>
+            <p data-trans="heroDescription">متخصص في تصميم المطبوعات وتصاميم السوشيال ميديا</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="primary-btn" data-trans="getDesign">احصل على تصميمك</a>
+                <a href="#services" class="secondary-btn" data-trans="exploreServices">استكشف خدماتي</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-trans="servicesTitle">خدماتي</h2>
+            </div>
+            <div class="services-grid" id="servicesGrid">
+                <!-- الخدمات الظاهرة (6 خدمات) مرتبة حسب الأهمية -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                    <h3 data-trans="socialMediaTitle">سوشال ميديا</h3>
+                    <p data-trans="socialMediaDesc">تصميم منشورات جذابة لمنصات التواصل الاجتماعي تعزز حضورك الرقمي</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#social-media" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 data-trans="printsTitle">الفلايرات والبروشورات</h3>
+                    <p data-trans="printsDesc">تصميم مطبوعات إعلانية مميزة تساعد في الترويج لنشاطك التجاري</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#print" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3 data-trans="rollUpTitle">رول أب ولافتات المعارض</h3>
+                    <p data-trans="rollUpDesc">تصميم لافتات ورول أب احترافية لمعارض والمؤتمرات</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#roll-up" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 data-trans="menuTitle">قوائم الطعام (منيو)</h3>
+                    <p data-trans="menuDesc">تصميم قوائم طعام جذابة واحترافية تعرض منتجاتك بشكل مميز</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#menu" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3 data-trans="businessCardsTitle">البطاقات الشخصية</h3>
+                    <p data-trans="businessCardsDesc">تصميم بطاقات أعمال احترافية تعزز هويتك المهنية</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#business-cards" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 data-trans="bookCoversTitle">أغلفة الكتب</h3>
+                    <p data-trans="bookCoversDesc">تصميم أغلفة كتب احترافية تجذب القراء وتعكس محتوى الكتاب</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#book-covers" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <!-- الخدمات المخفية -->
+                <div class="service-card hidden-service">
+                    <div class="service-icon">
+                        <i class="fas fa-envelope-open"></i>
+                    </div>
+                    <h3 data-trans="invitationsTitle">بطاق��ت الدعوة الإلكترونية</h3>
+                    <p data-trans="invitationsDesc">تصميم دعوات إلكترونية مميزة لمختلف المناسبات</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#invitations" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <div class="service-card hidden-service">
+                    <div class="service-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3 data-trans="certificatesTitle">الشهادات التقديرية</h3>
+                    <p data-trans="certificatesDesc">تصميم شهادات تقديرية احترافية للمؤسسات والفعاليات</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#certificates" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+
+                <div class="service-card hidden-service">
+                    <div class="service-icon">
+                        <i class="fas fa-ad"></i>
+                    </div>
+                    <h3 data-trans="advertisingTitle">اللوحات الإعلانية وستاندات المؤتمرات</h3>
+                    <p data-trans="advertisingDesc">تصميم لوحات إعلانية وستاندات احترافية للمؤتمرات والفعاليات</p>
+                    <hr class="service-divider">
+                    <a href="portfolio.html#advertising" class="learn-more" data-trans="learnMore">معرفة المزيد</a>
+                </div>
+            </div>
+            
+            <div class="show-more-container">
+                <button class="show-more-btn" id="showMoreBtn">
+                    <span data-trans="showMore">عرض المزيد</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-trans="testimonialsTitle">آراء العملاء</h2>
+            </div>
+            
+            <div class="testimonials-slider">
+                <!-- أزرار التنقل -->
+                <button class="nav-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <button class="nav-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <!-- حاوية التقييمات -->
+                <div class="testimonials-container" id="testimonialsContainer">
+                    <!-- سيتم إضافة التقييمات هنا ديناميكياً -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 data-trans="contactTitle">تواصل معي</h2>
+            <p data-trans="contactDescription">ابقَ على تواصل</p>
+            <div class="contact-buttons">
+                <a href="https://wa.me/96737742876" target="_blank" class="primary-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    <span data-trans="whatsappBtn">تواصل عبر واتساب</span>
+                </a>
+                <a href="mailto:your@email.com" class="secondary-btn">
+                    <i class="far fa-envelope"></i>
+                    <span data-trans="emailBtn">راسلني عبر الإيميل</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- إضافة قسم الأسئلة الشائعة قبل Footer -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-trans="faqTitle">الأسئلة الشائعة</h2>
+                <p data-trans="faqDescription">إجابات على أكثر الأسئلة شيوعاً</p>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 data-trans="faq1">لماذا الدفع قبل العمل؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-trans="faq1Answer">الدفع قبل البدء في العمل يدل على جدية العميل وضمان تغطية تكاليف الخدمة</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 data-trans="faq2">من يتحمل ضريبة التحويل؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-trans="faq2Answer">ضريبة التحويل لتغطية تكاليف المعاملات المالية الدولية وتقديم خدمة آمنة لك</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 data-trans="faq3">هل يمكنني استلام ملفات (AI - PSD)؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-trans="faq3Answer">نعم يمكنك استلام الملفات المفتوحة وذلك عن طريق دفع قيمتها التي تعتمد على نوع التصميم</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 data-trans="faq4">لماذا يتم نشر تصميمي في الموقع بدون إذني؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-trans="faq4Answer">التصاميم المنشورة في الموقع لغرض العرض والنشر وهي ضمن حقوقي كمصمم</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 data-trans="faq5">ما الذي يضمن لي جودة الخدمة؟</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-trans="faq5Answer">أحرص بشكل كبير على تقديم أفضل جودة في التصميم وإرضاء عملائي</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تحديث Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-sections">
+                    <!-- القسم الأول: الشعار والوصف -->
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <img src="logo.svg" alt="علي اسماعيل">
+                        </div>
+                        <p data-trans="footerDescription">مصمم جرافيك محترف متخصص في تصميم المطبوعات وتصاميم السوشيال ميديا</p>
+                    </div>
+
+                    <!-- القسم الثاني: روابط سريعة -->
+                    <div class="footer-links">
+                        <h3 data-trans="quickLinks">روابط سريعة</h3>
+                        <ul>
+                            <li><a href="#services" data-trans="myServices">خدماتي</a></li>
+                            <li><a href="portfolio.html" data-trans="myPortfolio">معرض أعمالي</a></li>
+                            <li><a href="#testimonials" data-trans="clientTestimonials">آراء العملاء</a></li>
+                            <li><a href="#contact" data-trans="contactMe">تواصل معي</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- القسم الثالث: السياسات -->
+                    <div class="footer-links">
+                        <h3 data-trans="policies">السياسات</h3>
+                        <ul>
+                            <li><a href="financial-policies.html" data-trans="financialPolicies">السياسات المالية</a></li>
+                            <li><a href="work-policies.html" data-trans="workPolicies">سياسات العمل</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- القسم الرابع: التواصل -->
+                    <div class="footer-contact">
+                        <h3 data-trans="footerContactTitle">تواصل معي</h3>
+                        <div class="social-links">
+                            <a href="https://instagram.com/3lismaeel" target="_blank" class="social-link instagram-link">
+                                <i class="fab fa-instagram" ></i>
+                            </a>
+                            <a href="https://wa.me/96737742876" target="_blank" class="social-link whatsapp-link">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://x.com/3lismaeel" target="_blank" class="social-link x-link">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تحديث حقوق النشر في Footer -->
+                <div class="footer-bottom">
+                    <p data-trans="rights">جميع الحقوق محفوظة © 2024 Ali Ismaeel</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js">
+        // تفعيل زر تغيير اللغة
+        document.querySelector('.lang-btn').addEventListener('click', function() {
+            document.documentElement.dir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl';
+            document.documentElement.lang = document.documentElement.lang === 'ar' ? 'en' : 'ar';
+            this.querySelector('span').textContent = document.documentElement.lang === 'ar' ? 'EN' : 'AR';
+        });
+
+        // تفعيل زر عرض المزيد
+        document.getElementById('showMoreBtn').addEventListener('click', function() {
+            const hiddenServices = document.querySelectorAll('.hidden-service');
+            const btnText = this.querySelector('span');
+            const btnIcon = this.querySelector('i');
+            
+            hiddenServices.forEach(service => {
+                if (service.style.display === 'none' || !service.style.display) {
+                    service.style.display = 'block';
+                    btnText.textContent = 'عرض أقل';
+                    btnIcon.style.transform = 'rotate(180deg)';
+                } else {
+                    service.style.display = 'none';
+                    btnText.textContent = 'عرض المزيد';
+                    btnIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+        });
+    </script>
+
+    <!-- ضف هذا الكود قبل نهاية body في index.html -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+        import firebaseConfig from './firebase-config.js';
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // تحميل التقييمات
+        function loadTestimonials() {
+            const testimonialsRef = ref(db, 'testimonials');
+            
+            onValue(testimonialsRef, (snapshot) => {
+                let testimonials = [];
+                snapshot.forEach((childSnapshot) => {
+                    testimonials.push(childSnapshot.val());
+                });
+
+                testimonials.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                const container = document.getElementById('testimonialsContainer');
+                container.innerHTML = testimonials.map((testimonial, index) => `
+                    <div class="testimonial-card ${index === 0 ? 'active' : ''}" style="animation-delay: ${index * 0.1}s">
+                        <div class="testimonial-header">
+                            <div class="client-info">
+                                <div class="client-avatar">
+                                    ${testimonial.imageUrl ? 
+                                        `<img src="${testimonial.imageUrl}" alt="${testimonial.name}">` :
+                                        `<i class="fas fa-user"></i>`
+                                    }
+                                </div>
+                                <div class="client-details">
+                                    <h3>${testimonial.name}</h3>
+                                    <p>${testimonial.title}</p>
+                                </div>
+                            </div>
+                            <div class="rating">
+                                ${Array(5).fill().map((_, i) => 
+                                    `<i class="fas fa-star${i < testimonial.rating ? '' : ' far'}"></i>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        <p class="testimonial-text">${testimonial.text}</p>
+                    </div>
+                `).join('');
+
+                // تحديث أزرار التنقل
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                const cardWidth = container.querySelector('.testimonial-card').offsetWidth + 24;
+
+                prevBtn.addEventListener('click', () => {
+                    container.scrollBy({
+                        left: -cardWidth,
+                        behavior: 'smooth'
+                    });
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    container.scrollBy({
+                        left: cardWidth,
+                        behavior: 'smooth'
+                    });
+                });
+
+                // تحديث البطاقة النشطة عند التحميل
+                updateActiveCard();
+            });
+        }
+
+        // تحميل التقييمات عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', loadTestimonials);
+
+        // تحديث دالة التنقل
+        function updateActiveCard() {
+            const container = document.getElementById('testimonialsContainer');
+            const cards = container.querySelectorAll('.testimonial-card');
+            const containerWidth = container.offsetWidth;
+            const scrollPosition = container.scrollLeft;
+
+            cards.forEach(card => {
+                const cardPosition = card.offsetLeft - container.offsetLeft;
+                const cardCenter = cardPosition + (card.offsetWidth / 2);
+                const containerCenter = scrollPosition + (containerWidth / 2);
+                
+                // حساب المسافة من مركز الحاوية
+                const distance = Math.abs(cardCenter - containerCenter);
+                
+                if (distance < card.offsetWidth / 2) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+                
+                // تطبيق التحول التدريجي
+                const scale = Math.max(0.95, 1 - (distance / containerWidth) * 0.2);
+                const opacity = Math.max(0.7, 1 - (distance / containerWidth) * 0.5);
+                card.style.transform = `scale(${scale})`;
+                card.style.opacity = opacity;
+            });
+        }
+
+        // إضافة مستمع للتمرير
+        document.getElementById('testimonialsContainer').addEventListener('scroll', updateActiveCard);
+    </script>
+
+    <!-- إضافة JavaScript للتمرير السلس -->
+    <script>
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // إذا كان الرابط يبدأ بـ "." (للأقسام في نفس الصفحة)
+                if (href.startsWith('.')) {
+                    e.preventDefault();
+                    const sectionClass = href.substring(1); // إزالة النقطة
+                    const section = document.querySelector(`.${sectionClass}`);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+    // إضافة وظيفة تبديل الأسئلة
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // إغلاق جميع الأسئلة المفتوحة
+            document.querySelectorAll('.faq-item').forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+
+            // تبديل حال السؤال الحالي
+            item.classList.toggle('active');
+
+            // تحريك السؤال إلى المنتصف إذا تم فتحه
+            if (!isActive) {
+                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    });
+    </script>
+    <!-- إضافة سكربت واحد في نهاية الصفحة -->
+<script type="module">
+    import translations from './translations.js';
+
+    // تحديد اللغة الافتراضية
+    let currentLang = localStorage.getItem('lang') || 'ar';
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+    // دالة كتابة النص
+    function typeText() {
+        const text = translations[currentLang].typingText;
+        const typewriter = document.getElementById('typewriter');
+        let index = 0;
+        
+        // مسح النص الحالي
+        typewriter.textContent = '';
+        
+        function type() {
+            if (index < text.length) {
+                typewriter.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 100);
+            }
+        }
+
+        type();
+    }
+
+    // دالة تغيير اللغة
+    function changeLang() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        localStorage.setItem('lang', currentLang);
+        
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+        
+        // تحديث النصوص
+        Object.keys(translations[currentLang]).forEach(key => {
+            const elements = document.querySelectorAll(`[data-trans="${key}"]`);
+            elements.forEach(el => {
+                el.textContent = translations[currentLang][key];
+            });
+        });
+
+        // تحديث نص زر اللغة
+        document.querySelector('.lang-btn span').textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+
+        // تحديث الأنماط
+        document.body.classList.toggle('en-lang');
+
+        // إعادة تشيل النص المتحرك
+        setTimeout(typeText, 100);
+    }
+
+    // تنفيذ عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', () => {
+        // تطبيق الترجمات
+        Object.keys(translations[currentLang]).forEach(key => {
+            const elements = document.querySelectorAll(`[data-trans="${key}"]`);
+            elements.forEach(el => {
+                el.textContent = translations[currentLang][key];
+            });
+        });
+
+        // بدء النص المتحرك
+        typeText();
+
+        // إضافة مستمع لزر تغيير اللغة
+        document.querySelector('.lang-btn').addEventListener('click', changeLang);
+    });
+</script>
+</body>
+</html> 

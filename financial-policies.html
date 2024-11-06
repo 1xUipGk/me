@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السياسات المالية - علي اسماعيل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .policies-page {
+            padding: 120px 0 60px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(255, 77, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        .policies-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .policy-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .policy-section h1 {
+            color: var(--text);
+            font-size: 32px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .policy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .policy-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+        }
+
+        .policy-item:hover {
+            border-color: var(--primary);
+            background: rgba(255, 77, 0, 0.02);
+            transform: translateY(-2px);
+        }
+
+        .policy-item i {
+            color: var(--primary);
+            font-size: 24px;
+            padding-top: 4px;
+        }
+
+        .policy-item p {
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .policies-page {
+                padding: 100px 0 40px;
+            }
+
+            .policy-section {
+                padding: 24px;
+                margin-bottom: 24px;
+            }
+
+            .policy-section h1 {
+                font-size: 24px;
+                margin-bottom: 24px;
+            }
+
+            .policy-item {
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .policy-item i {
+                font-size: 20px;
+            }
+
+            .policy-item p {
+                font-size: 14px;
+            }
+        }
+
+        /* تنسيق Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 0;
+            background: var(--background);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .contact-btn {
+            padding: 8px 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.2);
+        }
+
+        /* تنسيق Footer */
+        footer {
+            padding: 80px 0 32px;
+            border-top: 1px solid var(--border);
+            background: var(--card-bg);
+        }
+
+        .footer-sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            max-width: 320px;
+        }
+
+        .footer-brand .footer-logo {
+            margin-bottom: 16px;
+        }
+
+        .footer-brand .footer-logo img {
+            height: 48px;
+            width: auto;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary);
+            transform: translateX(-8px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            text-decoration: none !important;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .instagram-link:hover::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        .instagram-link:hover {
+            color: white;
+            border-color: transparent;
+        }
+
+        .whatsapp-link:hover {
+            background: #25D366;
+            border-color: transparent;
+            color: white;
+        }
+
+        .x-link:hover {
+            background: black;
+            border-color: transparent;
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        @media (max-width: 992px) {
+            .footer-sections {
+                grid-template-columns: 2fr 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-links:nth-child(3) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-sections {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .footer-brand {
+                margin: 0 auto;
+            }
+
+            .footer-links h3::after {
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            .footer-links:nth-child(2) {
+                display: none;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer-links ul li a {
+                justify-content: center;
+            }
+
+            .footer-links ul li a:hover {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.svg" alt="علي اسماعيل" class="logo-img">
+            </a>
+            <div class="nav-items">
+                <button class="lang-btn">
+                    <span>EN</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </button>
+                <a href="index.html#contact" class="contact-btn">تواصل معي</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="policies-page">
+        <div class="policies-container">
+            <div class="policy-section">
+                <h1>السياسات المالية</h1>
+                <ul class="policy-list">
+                    <li class="policy-item">
+                        <i class="fas fa-money-check"></i>
+                        <p>الدفع إلزامي قبل البداية في أي خدمة</p>
+                    </li>
+                    <li class="policy-item">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <p>يتحمل الزبون جميع الضرائب ورسوم التحويل</p>
+                    </li>
+                    <li class="policy-item">
+                        <i class="fas fa-ban"></i>
+                        <p>يمنع تسليم الخدمات قبل دفع سعرها الكامل</p>
+                    </li>
+                    <li class="policy-item">
+                        <i class="fas fa-clock"></i>
+                        <p>في حال طلب خدمة مستعجلة، سيتم طلب مبلغ إضافي على السعر الأصلي</p>
+                    </li>
+                    <li class="policy-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>بعد البدء في أي خدمة، عند مخالفة القانون يتم نشر طلبك مجاناً</p>
+                    </li>
+                    <li class="policy-item">
+                        <i class="fas fa-undo-alt"></i>
+                        <p>يمنع طلب استرجاع للمبلغ</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-sections">
+                <!-- القسم الأول: الشعار والوصف -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="logo.svg" alt="علي اسماعيل">
+                    </div>
+                    <p>مصمم جرافيك محترف متخصص في تصميم المطبوعات وتصاميم السوشيال ميديا</p>
+                </div>
+
+                <!-- القسم الثاني: روابط سريعة -->
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html#services">خدماتي</a></li>
+                        <li><a href="portfolio.html">معرض أعمالي</a></li>
+                        <li><a href="index.html#testimonials">آراء العملاء</a></li>
+                        <li><a href="index.html#contact">تواصل معي</a></li>
+                    </ul>
+                </div>
+
+                <!-- القسم الثالث: السياسات -->
+                <div class="footer-links">
+                    <h3>السياسات</h3>
+                    <ul>
+                        <li><a href="financial-policies.html">السياسات المالية</a></li>
+                        <li><a href="work-policies.html">سياسات العمل</a></li>
+                    </ul>
+                </div>
+
+                <!-- القسم الرابع: التواصل -->
+                <div class="footer-contact">
+                    <h3>تواصل معي</h3>
+                    <div class="social-links">
+                        <a href="https://instagram.com/3lismaeel" target="_blank" class="social-link instagram-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/96737742876" target="_blank" class="social-link whatsapp-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://x.com/3lismaeel" target="_blank" class="social-link x-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تحديث حقوق النشر في Footer -->
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2024 Ali Ismaeel</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

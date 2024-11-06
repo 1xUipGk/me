@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أعمالي - علي اسماعيل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* أنماط خاصة بصفحة الأعمال */
+        .portfolio-page {
+            padding: 120px 0 60px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .work-item {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .work-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
+        }
+
+        .work-image-container {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .work-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .work-item:hover .work-image {
+            transform: scale(1.1);
+        }
+
+        .work-info {
+            padding: 20px;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.8),
+                rgba(0, 0, 0, 0.6) 50%,
+                transparent
+            );
+        }
+
+        .work-info h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .work-info p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 16px;
+                padding: 16px;
+            }
+
+            .work-image-container {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-image-container {
+                height: 200px;
+            }
+        }
+
+        /* تنسيق المعرض المنبثق */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-lightbox:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .lightbox {
+                padding: 20px;
+            }
+
+            .close-lightbox {
+                top: 10px;
+                right: 10px;
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        /* تحسين التجاوب */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* أنماط انيميشن التحميل */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            gap: 20px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* إخفاء الشبكة أثناء التحميل */
+        .portfolio-grid.loading {
+            display: none;
+        }
+
+        /* تحديث أنماط Lightbox */
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .portfolio-overlay i {
+            color: white;
+            font-size: 24px;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .work-image-container:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .work-image-container:hover .portfolio-overlay i {
+            transform: scale(1);
+        }
+
+        /* تنسيقات Footer */
+        .footer-links h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links ul li a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary);
+            transform: translateX(-8px);
+        }
+
+        .footer-links ul li a:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .footer-links {
+                text-align: center;
+            }
+
+            .footer-links h3::after {
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            .footer-links ul li a {
+                justify-content: center;
+            }
+
+            .footer-links ul li a:hover {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.svg" alt="علي اسماعيل" class="logo-img">
+            </a>
+            <div class="nav-items">
+                <button class="lang-btn">
+                    <span>EN</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M2.5 12h19M12 2.5a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </button>
+                <a href="index.html#contact" class="contact-btn">تواصل معي</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-page">
+        <div class="container">
+            <h1>أعمالي</h1>
+            
+            <!-- قائمة التصفية -->
+            <div class="portfolio-filter">
+                <a href="#social-media" class="filter-btn">بوستات سوشيال ميديا</a>
+                <a href="#print" class="filter-btn">الفلايرات والبروشورات</a>
+                <a href="#roll-up" class="filter-btn">رول أب ولافتات</a>
+                <a href="#menu" class="filter-btn">قوائم الطعام</a>
+                <a href="#business-cards" class="filter-btn">البطاقات الشخصية</a>
+                <a href="#book-covers" class="filter-btn">أغلفة الكتب</a>
+                <a href="#invitations" class="filter-btn">بطاقات دعوة</a>
+                <a href="#certificates" class="filter-btn">الشهادات التقديرية</a>
+                <a href="#advertising" class="filter-btn">اللوحات الإعلانية</a>
+            </div>
+
+            <!-- قسم السوشيال ميديا -->
+            <div class="portfolio-section" id="social-media">
+                <h2>تصاميم سوشيال ميديا</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid" data-category="social-media">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-instagram"></i>
+                            <span>بوست انستغرام</span>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <i class="fas fa-expand view-full"></i>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>إعلان منتج</span>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <i class="fas fa-expand view-full"></i>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-percent"></i>
+                            <span>عرض خاص</span>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <i class="fas fa-expand view-full"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الفلايرات والبروشورات -->
+            <div class="portfolio-section" id="print">
+                <h2>الفلايرات والبروشورات</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-file-alt"></i>
+                            <span>فلاير إعلاني</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الرول أب -->
+            <div class="portfolio-section" id="roll-up">
+                <h2>رول أب ولافتات المعارض</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-scroll"></i>
+                            <span>رول أب معرض</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم قوائم الطعام -->
+            <div class="portfolio-section" id="menu">
+                <h2>قوائم الطعام</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid" data-category="menu">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-utensils"></i>
+                            <span>قائمة مطعم</span>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <i class="fas fa-expand view-full"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم البطاقات الشخصية -->
+            <div class="portfolio-section" id="business-cards">
+                <h2>البطاقات الشخصية</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-id-card"></i>
+                            <span>بطاقة أعمال</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم أغلفة الكتب -->
+            <div class="portfolio-section" id="book-covers">
+                <h2>أغلفة الكتب</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-book"></i>
+                            <span>غلاف كتاب</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم بطاقات الدعوة -->
+            <div class="portfolio-section" id="invitations">
+                <h2>بطاقات الدعوة الإلكترونية</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-envelope-open"></i>
+                            <span>دعوة إلكترونية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الشهادت -->
+            <div class="portfolio-section" id="certificates">
+                <h2>الشهادات التقديرية</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-award"></i>
+                            <span>شهادة تقديرية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم اللوحات الإعلانية -->
+            <div class="portfolio-section" id="advertising">
+                <h2>اللوحات الإعلانية وستاندات المؤتمرات</h2>
+                <div class="loading-container" id="loadingContainer">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">جاري تحميل الأعمال...</p>
+                </div>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-placeholder">
+                            <i class="fas fa-ad"></i>
+                            <span>لوحة إعلانية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="close-lightbox" onclick="event.stopPropagation(); closeLightbox()">
+            <i class="fas fa-times"></i>
+        </button>
+        <img src="" alt="">
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
+        import firebaseConfig from './firebase-config.js';
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // تحميل الأعمال عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            loadWorks();
+        });
+
+        // دالة تحميل الأعمال
+        function loadWorks() {
+            const worksRef = ref(db, 'works');
+            
+            // إظهار انيميشن التحميل
+            document.querySelectorAll('.portfolio-grid').forEach(grid => {
+                grid.classList.add('loading');
+            });
+            document.querySelectorAll('.loading-container').forEach(container => {
+                container.style.display = 'flex';
+            });
+
+            onValue(worksRef, (snapshot) => {
+                const works = snapshot.val();
+                
+                // إخفاء انيميشن التحميل
+                document.querySelectorAll('.loading-container').forEach(container => {
+                    container.style.display = 'none';
+                });
+                document.querySelectorAll('.portfolio-grid').forEach(grid => {
+                    grid.classList.remove('loading');
+                });
+
+                if (works) {
+                    // تنظيم الأعمال حسب الفئة
+                    const categorizedWorks = {};
+                    Object.values(works).forEach(work => {
+                        if (!categorizedWorks[work.category]) {
+                            categorizedWorks[work.category] = [];
+                        }
+                        categorizedWorks[work.category].push(work);
+                    });
+
+                    // عرض الأعمال في الأقسام المناسبة
+                    Object.keys(categorizedWorks).forEach(category => {
+                        const sectionId = `#${category}`;
+                        const section = document.querySelector(sectionId);
+                        if (section) {
+                            const grid = section.querySelector('.portfolio-grid');
+                            if (grid) {
+                                grid.innerHTML = ''; // مسح المحتوى القديم
+                                categorizedWorks[category].forEach(work => {
+                                    const workElement = createWorkElement(work);
+                                    grid.appendChild(workElement);
+                                });
+                            }
+                        }
+                    });
+                }
+            }, (error) => {
+                // في حالة حدوث خطأ
+                console.error("Error loading works:", error);
+                document.querySelectorAll('.loading-container').forEach(container => {
+                    container.innerHTML = `
+                        <i class="fas fa-exclamation-circle" style="color: #f44336; font-size: 40px;"></i>
+                        <p class="loading-text">حدث خطأ أثناء تحميل الأعمال</p>
+                    `;
+                });
+            });
+        }
+
+        // دالة إنشاء عنصر العمل
+        function createWorkElement(work) {
+            const div = document.createElement('div');
+            div.className = 'work-item';
+            div.innerHTML = `
+                <div class="work-image-container" onclick="openLightbox('${work.imageUrl}', '${work.title}')">
+                    <img src="${work.imageUrl}" alt="${work.title}" class="work-image">
+                    <div class="portfolio-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <h3>${work.title}</h3>
+                    <p>${getCategoryName(work.category)}</p>
+                </div>
+            `;
+            return div;
+        }
+
+        // دالة الحصول على اسم القسم بالعربية
+        function getCategoryName(category) {
+            const categories = {
+                'social-media': 'سوشيال ميديا',
+                'print': 'فلايرات وبروشورات',
+                'roll-up': 'رول أب ولافات',
+                'menu': 'قوائم طعام',
+                'business-cards': 'بطاقات شخصية',
+                'book-covers': 'أغلفة كتب',
+                'invitations': 'بطاقات دعوة',
+                'certificates': 'شهادات تقديرية',
+                'advertising': 'لوحات إ��لانية'
+            };
+            return categories[category] || category;
+        }
+
+        // إضافة دالة فتح وإغلاق Lightbox
+        window.openLightbox = (imageUrl, title) => {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('img');
+            lightboxImg.src = imageUrl;
+            lightboxImg.alt = title;
+            lightbox.classList.add('active');
+        };
+
+        window.closeLightbox = () => {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        };
+
+        // إضافة مستمع لإغلاق Lightbox عند النقر خارج الصورة
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+
+        // إضافة مستمع لإغلاق Lightbox بزر ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-sections">
+                <!-- القسم الأول: الشعار والوصف -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="logo.svg" alt="علي اسماعيل">
+                    </div>
+                    <p>مصمم جرافيك محترف متخصص في تصميم المطبوعات وتصاميم السوشيال ميديا</p>
+                </div>
+
+                <!-- القسم الثاني: روابط سريعة -->
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html#services">خدماتي</a></li>
+                        <li><a href="portfolio.html">معرض أعمالي</a></li>
+                        <li><a href="index.html#testimonials">آراء العملاء</a></li>
+                        <li><a href="index.html#contact">تواصل معي</a></li>
+                    </ul>
+                </div>
+
+                <!-- القسم الثالث: السياسات -->
+                <div class="footer-links">
+                    <h3>السياسات</h3>
+                    <ul>
+                        <li><a href="financial-policies.html">السياسات المالية</a></li>
+                        <li><a href="work-policies.html">سياسات العمل</a></li>
+                    </ul>
+                </div>
+
+                <!-- القسم الرابع: التواصل -->
+                <div class="footer-contact">
+                    <h3>تواصل معي</h3>
+                    <div class="social-links">
+                        <a href="https://instagram.com/3lismaeel" target="_blank" class="social-link instagram-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/96737742876" target="_blank" class="social-link whatsapp-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://x.com/3lismaeel" target="_blank" class="social-link x-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تحديث حقوق النشر في Footer -->
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة © 2024 Ali Ismaeel</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
