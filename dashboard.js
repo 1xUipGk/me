@@ -114,8 +114,11 @@ function createWorkElement(work, workId) {
     const div = document.createElement('div');
     div.className = 'work-item';
     div.innerHTML = `
-        <div class="work-image-container">
+        <div class="work-image-container" onclick="openDashboardLightbox('${work.imageUrl}', '${work.title}')">
             <img src="${work.imageUrl}" alt="${work.title}" class="work-image">
+            <div class="portfolio-overlay">
+                <i class="fas fa-expand"></i>
+            </div>
         </div>
         <div class="work-info">
             <h3>${work.title}</h3>
@@ -519,3 +522,26 @@ async function handleTestimonialSubmit(e) {
         submitBtn.textContent = isEdit ? 'تحديث التقييم' : 'إضافة تقييم';
     }
 }
+
+// إضافة دوال فتح وإغلاق Lightbox
+window.openDashboardLightbox = (imageUrl, title) => {
+    const lightbox = document.getElementById('dashboardLightbox');
+    const lightboxImg = document.getElementById('lightboxImage');
+    lightboxImg.src = imageUrl;
+    lightboxImg.alt = title;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; // منع التمرير في الخلفية
+};
+
+window.closeDashboardLightbox = () => {
+    const lightbox = document.getElementById('dashboardLightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // إعادة تفعيل التمرير
+};
+
+// إضافة مستمع لإغلاق Lightbox بزر ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeDashboardLightbox();
+    }
+});

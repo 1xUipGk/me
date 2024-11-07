@@ -7,21 +7,21 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://3lismaeel.xyz/portfolio.html</loc>
+        <loc>https://3lismaeel.xyz/portfolio</loc>
         <lastmod>2024-03-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://3lismaeel.xyz/financial-policies.html</loc>
+        <loc>https://3lismaeel.xyz/financial-policies</loc>
         <lastmod>2024-03-14</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
+        <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://3lismaeel.xyz/work-policies.html</loc>
+        <loc>https://3lismaeel.xyz/work-policies</loc>
         <lastmod>2024-03-14</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
+        <priority>0.5</priority>
     </url>
 </urlset> 

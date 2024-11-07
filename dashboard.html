@@ -488,7 +488,7 @@
     }
 }
 
-/* تحسين تنسيق input file */
+/* تحسين تنسي�� input file */
 .form-group input[type="file"] {
     padding: 10px;
     background: rgba(255, 255, 255, 0.05);
@@ -938,6 +938,7 @@ textarea {
         transform: translateY(0);
     }
 }
+
     </style>
 </head>
 <body>
@@ -1060,6 +1061,21 @@ textarea {
         <i class="fas fa-exclamation-circle"></i>
         <span></span>
     </div>
+
+    <div class="dashboard-lightbox" id="dashboardLightbox" onclick="closeDashboardLightbox()">
+        <button class="close-lightbox" onclick="event.stopPropagation(); closeDashboardLightbox()">
+            <i class="fas fa-times"></i>
+        </button>
+        <img src="" alt="" id="lightboxImage">
+    </div>
+
+    /* إضافة قبل نهاية body */
+<div class="dashboard-lightbox" id="dashboardLightbox" onclick="closeDashboardLightbox()">
+    <button class="close-lightbox" onclick="event.stopPropagation(); closeDashboardLightbox()">
+        <i class="fas fa-times"></i>
+    </button>
+    <img src="" alt="" id="lightboxImage">
+</div>
 
     <script type="module" src="dashboard.js"></script>
     <script src="protection.js"></script>
