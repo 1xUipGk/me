@@ -1,327 +1,74 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="pvNXLIHGOS6Q-qiPaWnNErNfLwi0Pk1qHcH3rvfNius" />
+    
+    <!-- Meta Tags الأساسية -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3lismaeel - معرض الأعمال</title>
+    <meta name="description" content="معرض أعمال علي إسماعيل - مجموعة من التصاميم الاحترافية في مجال المطبوعات والسوشيال ميديا. تصفح أحدث وأفضل الأعمال في مجال التصميم الجرافيكي">
+    <meta name="keywords" content="معرض أعمال, بورتفوليو, أعمال سابقة, تصميم جرافيك, تصاميم احترافية, مصمم في البحرين">
+    <meta name="author" content="3lismaeel">
+
+    <!-- SEO Tags -->
+    <link rel="canonical" href="https://3lismaeel.xyz/portfolio">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Arabic">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="3lismaeel - معرض الأعمال">
+    <meta property="og:description" content="معرض أعمال علي إسماعيل - مجموعة من التصاميم الاحترافية في مجال المطبوعات والسوشيال ميديا">
+    <meta property="og:image" content="https://3lismaeel.xyz/og-image.jpg">
+    <meta property="og:url" content="https://3lismaeel.xyz/portfolio">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="3lismaeel">
+    <meta property="og:locale" content="ar_SA">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@3lismaeel">
+    <meta name="twitter:creator" content="@3lismaeel">
+    <meta name="twitter:title" content="3lismaeel - معرض الأعمال">
+    <meta name="twitter:description" content="معرض أعمال علي إسماعيل - مجموعة من التصاميم الاحترافية">
+    <meta name="twitter:image" content="https://3lismaeel.xyz/twitter-image.jpg">
+
+    <!-- Mobile Meta Tags -->
+    <meta name="theme-color" content="#FF4D00">
+    <meta name="msapplication-navbutton-color" content="#FF4D00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#FF4D00">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- PWA Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png">
+
+    <!-- Preconnect & DNS Prefetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* أنماط خاصة بصفحة الأعمال */
-        .portfolio-page {
-            padding: 120px 0 60px;
-        }
+    <link rel="stylesheet" href="/style.css">
 
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-            padding: 24px;
-        }
-
-        .work-item {
-            position: relative;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-        }
-
-        .work-item:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
-        }
-
-        .work-image-container {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-        }
-
-        .work-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .work-item:hover .work-image {
-            transform: scale(1.1);
-        }
-
-        .work-info {
-            padding: 20px;
-            background: linear-gradient(
-                to top,
-                rgba(0, 0, 0, 0.8),
-                rgba(0, 0, 0, 0.6) 50%,
-                transparent
-            );
-        }
-
-        .work-info h3 {
-            margin: 0 0 8px;
-            font-size: 18px;
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .work-info p {
-            margin: 0;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 768px) {
-            .portfolio-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 16px;
-                padding: 16px;
-            }
-
-            .work-image-container {
-                height: 180px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .work-image-container {
-                height: 200px;
-            }
-        }
-
-        /* تنسيق المعرض المنبثق */
-        .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 40px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lightbox.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .lightbox.active img {
-            transform: scale(1);
-        }
-
-        .close-lightbox {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .close-lightbox:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        @media (max-width: 768px) {
-            .lightbox {
-                padding: 20px;
-            }
-
-            .close-lightbox {
-                top: 10px;
-                right: 10px;
-                width: 36px;
-                height: 36px;
-            }
-        }
-
-        /* تحسين التجاوب */
-        @media (max-width: 768px) {
-            .portfolio-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* أنماط انيميشن التحميل */
-        .loading-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 300px;
-            gap: 20px;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--border);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-
-        .loading-text {
-            color: var(--text-secondary);
-            font-size: 16px;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* إخفاء الشبكة أثناء التحميل */
-        .portfolio-grid.loading {
-            display: none;
-        }
-
-        /* تحديث أنماط Lightbox */
-        .portfolio-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            cursor: pointer;
-        }
-
-        .portfolio-overlay i {
-            color: white;
-            font-size: 24px;
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-
-        .work-image-container:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
-        .work-image-container:hover .portfolio-overlay i {
-            transform: scale(1);
-        }
-
-        /* تنسيقات Footer */
-        .footer-links h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--text);
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-links h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 40px;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        .footer-links ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links ul li a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links ul li a::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.3s ease;
-        }
-
-        .footer-links ul li a:hover {
-            color: var(--primary);
-            transform: translateX(-8px);
-        }
-
-        .footer-links ul li a:hover::before {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        @media (max-width: 768px) {
-            .footer-links {
-                text-align: center;
-            }
-
-            .footer-links h3::after {
-                right: 50%;
-                transform: translateX(50%);
-            }
-
-            .footer-links ul li a {
-                justify-content: center;
-            }
-
-            .footer-links ul li a:hover {
-                transform: translateX(0);
-            }
-        }
-    </style>
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <title>3lismaeel - معرض الأعمال</title>
 </head>
 <body>
     <!-- Navbar -->
