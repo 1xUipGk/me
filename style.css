@@ -613,7 +613,8 @@ footer {
 }
 
 .client-avatar {
-    height: 60px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -1241,7 +1242,12 @@ textarea::-webkit-scrollbar-thumb:hover {
     height: 48px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid var(--border);
+}
+
+.client-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .client-avatar i {
@@ -1253,6 +1259,13 @@ textarea::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
     color: white;
     font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .client-avatar {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 .client-details h3 {
@@ -1325,104 +1338,522 @@ textarea::-webkit-scrollbar-thumb:hover {
     }
 }
 
-/* إضافة أنماط للغة الإنجليزية */
-.en-lang {
-    font-family: 'Poppins', sans-serif;
+/* تنسيق صفحات السياسات */
+.policies-page {
+    padding: 120px 0 60px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, rgba(255, 77, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
-.en-lang .hero h1,
-.en-lang .section-header h2 {
-    font-weight: 700;
+.policies-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.en-lang .hero p,
-.en-lang .section-header p {
-    font-weight: 400;
+.policy-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
-/* تحديث الهوامش للغة الإنجليزية */
-.en-lang .navbar .container {
-    flex-direction: row-reverse;
+.policy-section h1 {
+    color: var(--text);
+    font-size: 32px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--primary);
+    display: inline-block;
 }
 
-.en-lang .social-links {
-    flex-direction: row-reverse;
+.policy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* إضافة خط Poppins للإنجليزية */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-/* تحديث تنسيق Navbar للغة الإنجليزية */
-.en-lang .navbar .container {
-    flex-direction: row; /* عكس الاتجاه للإنجليزية */
+.policy-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
 }
 
-.en-lang .logo {
-    order: 0; /* الشعار على اليسار */
+.policy-item:hover {
+    border-color: var(--primary);
+    background: rgba(255, 77, 0, 0.02);
+    transform: translateY(-2px);
 }
 
-.en-lang .nav-items {
-    order: 1; /* العناصر على ا��يمين */
-    flex-direction: row-reverse; /* عكس ترتيب العناصر */
+.policy-item i {
+    color: var(--primary);
+    font-size: 24px;
+    padding-top: 4px;
 }
 
-.en-lang .lang-btn {
-    margin-left: 0;
-    margin-right: 16px;
+.policy-item p {
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 16px;
 }
 
-/* تحديث تنسيق النصوص في Navbar */
-.en-lang .nav-items .contact-btn {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+@media (max-width: 768px) {
+    .policies-page {
+        padding: 100px 0 40px;
+    }
+
+    .policy-section {
+        padding: 24px;
+        margin-bottom: 24px;
+    }
+
+    .policy-section h1 {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+
+    .policy-item {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .policy-item i {
+        font-size: 20px;
+    }
+
+    .policy-item p {
+        font-size: 14px;
+    }
 }
 
-.en-lang .lang-btn {
-    font-family: 'Poppins', sans-serif;
-}
 
-/* تحديث تنسيق Hero للإنجليزية */
-.en-lang .hero h1 {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-}
-
-.en-lang .hero p {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-}
-.en-lang .hero-buttons {
-    flex-direction: row; /* عكس اتجاه الأزرار */
+.footer-links h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text);
+    position: relative;
+    padding-bottom: 10px;
 }
 
 .footer-links h3::after {
     content: '';
     position: absolute;
     bottom: 0;
-    right: 0; /* للعربية */
+    right: 0;
     width: 40px;
     height: 2px;
     background: var(--primary);
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 12px;
+}
+
+.footer-links ul li a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-links ul li a::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
     transition: all 0.3s ease;
 }
 
-/* عكس مكان الخط في النسخة الإنجليزية */
-.en-lang .footer-links h3::after {
-    right: unset; /* إزالة اليمين */
-    left: 0; /* تعيين اليسار */
+.footer-links ul li a:hover {
+    color: var(--primary);
+    transform: translateX(-8px);
 }
 
-/* تحديث التوسيط في الشاشات الصغيرة */
+.footer-links ul li a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
 @media (max-width: 768px) {
+    .footer-links {
+        text-align: center;
+    }
+
     .footer-links h3::after {
         right: 50%;
-        left: auto;
         transform: translateX(50%);
     }
 
-    .en-lang .footer-links h3::after {
-        right: 50%;
-        left: auto;
-        transform: translateX(50%);
+    .footer-links ul li a {
+        justify-content: center;
     }
+
+    .footer-links ul li a:hover {
+        transform: translateX(0);
+    }
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    gap: 20px;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--border);
+    border-radius: 50%;
+    border-top-color: var(--primary);
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.testimonials-container {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+
+.testimonial-card {
+    min-width: calc(33.333% - 16px);
+    flex: 0 0 calc(33.333% - 16px);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    scroll-snap-align: start;
+    opacity: 0.7;
+    transform: scale(0.95);
+}
+
+.testimonial-card.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تنسيق قسم التقييمات */
+.testimonials-slider {
+    position: relative;
+    padding: 0 40px;
+    margin: 40px 0;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    opacity: 0.7;
+}
+
+.nav-btn:hover {
+    background: #ff6b00;
+    transform: translateY(-50%) scale(1.1);
+    opacity: 1;
+}
+
+.prev-btn {
+    right: 0;
+}
+
+.next-btn {
+    left: 0;
+}
+
+.testimonial-card {
+    min-width: 300px;
+    flex: 0 0 300px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+@media (max-width: 768px) {
+    .testimonials-slider {
+        padding: 0 30px;
+    }
+
+    .nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .testimonial-card {
+        min-width: 260px;
+        flex: 0 0 260px;
+    }
+}
+
+.testimonials-container {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+
+.testimonial-card {
+    min-width: calc(33.333% - 16px);
+    flex: 0 0 calc(33.333% - 16px);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 992px) {
+    .testimonial-card {
+        min-width: calc(50% - 12px);
+        flex: 0 0 calc(50% - 12px);
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonial-card {
+        min-width: calc(100% - 8px);
+        flex: 0 0 calc(100% - 8px);
+    }
+}
+
+/* تنسيق قسم الأسئلة الشائعة */
+.faq {
+    padding: 80px 0;
+    background: linear-gradient(180deg, transparent, rgba(255, 77, 0, 0.03));
+}
+
+.faq-grid {
+    display: grid;
+    gap: 24px;
+    max-width: 800px;
+    margin: 40px auto 0;
+}
+
+.faq-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
+}
+
+.faq-question {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.faq-question h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0;
+}
+
+.faq-question i {
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    padding: 0 24px;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 24px 24px;
+    height: auto;
+    opacity: 1;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .faq {
+        padding: 60px 0;
+    }
+
+    .faq-grid {
+        gap: 16px;
+        margin: 30px auto 0;
+    }
+
+    .faq-question {
+        padding: 20px;
+    }
+
+    .faq-question h3 {
+        font-size: 16px;
+    }
+
+    .faq-answer {
+        padding: 0 20px;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0 20px 20px;
+    }
+}
+
+.design-text {
+    display: inline-block;
+    position: relative;
+    color: var(--primary);
+    font-family: 'Vazirmatn', monospace;
+    font-weight: 600;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    margin-left: 4px;
+    background-color: var(--primary);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 32px;
+    }
+}
+
+.design-text {
+    display: inline-block;
+    position: relative;
+    color: white;
+    font-family: 'Vazirmatn', monospace;
+    font-weight: 600;
+}
+
+.highlight {
+    color: var(--primary);
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: var(--primary);
+    margin-right: 4px;
+    animation: blink 1s infinite;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 32px;
+    }
+}
+
+#typewriter {
+    white-space: nowrap;
 }

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3lismaeel - روابط التواصل</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF4D00;
+            --text: #ffffff;
+            --background: #000000;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, rgba(255, 77, 0, 0.2), transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(255, 77, 0, 0.1), transparent 50%),
+                        var(--background);
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid var(--primary);
+            padding: 4px;
+            transition: transform 0.3s ease;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .profile-bio {
+            color: var(--text);
+            opacity: 0.8;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .links-container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .social-link {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            background: rgba(255, 77, 0, 0.1);
+        }
+
+        .social-link i,
+        .social-link svg {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            color: var(--primary);
+        }
+
+        .link-text {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .arrow {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--primary);
+        }
+
+        .social-link:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .website-link {
+            margin-top: 40px;
+            color: var(--text);
+            opacity: 0.6;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .website-link:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        @media (max-width: 480px) {
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .profile-name {
+                font-size: 24px;
+            }
+
+            .social-link {
+                padding: 16px;
+            }
+
+            .link-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-section">
+        <img src="icon.svg" alt="3lismaeel" class="profile-image">
+        <h1 class="profile-name">3lismaeel</h1>
+        <p class="profile-bio">مصمم جرافيك محترف متخصص في تصميم المطبوعات وتصاميم السوشيال ميديا</p>
+    </div>
+
+    <div class="links-container">
+        <a href="https://3lismaeel.xyz" class="social-link">
+            <i class="fas fa-globe"></i>
+            <span class="link-text">موقعي الرسمي</span>
+            <i class="fas fa-chevron-left arrow"></i>
+        </a>
+
+        <a href="https://instagram.com/3lismaeel" target="_blank" class="social-link">
+            <i class="fab fa-instagram"></i>
+            <span class="link-text">تابعني على انستقرام</span>
+            <i class="fas fa-chevron-left arrow"></i>
+        </a>
+
+        <a href="https://tiktok.com/@3lismaeel" target="_blank" class="social-link">
+            <i class="fab fa-tiktok"></i>
+            <span class="link-text">تابعني على تيك توك</span>
+            <i class="fas fa-chevron-left arrow"></i>
+        </a>
+
+        <a href="https://facebook.com/3lismaeel" target="_blank" class="social-link">
+            <i class="fab fa-facebook"></i>
+            <span class="link-text">تابعني على فيسبوك</span>
+            <i class="fas fa-chevron-left arrow"></i>
+        </a>
+
+        <a href="https://wa.me/97337742876" target="_blank" class="social-link">
+            <i class="fab fa-whatsapp"></i>
+            <span class="link-text">تواصل معي على واتساب</span>
+            <i class="fas fa-chevron-left arrow"></i>
+        </a>
+
+        <a href="https://x.com/3lismaeel" target="_blank" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+            </svg>
+            <span class="link-text">تابعني على X</span>
+            <i class="fas fa-chevron-left arrow"></i>
+        </a>
+    </div>
+
+    <script src="protection.js"></script>
+</body>
+</html> 

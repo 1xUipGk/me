@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إضافة تقييم لخدماتي - علي اسماعيل</title>
+    <title>3lismaeel - التقييمات</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -431,6 +432,7 @@
             }
         }
     </style>
+    
 </head>
 <body>
     <div class="message success-message" id="successMessage">
@@ -445,7 +447,7 @@
     <div class="review-container">
         <div class="review-card">
             <div class="review-logo">
-                <img src="logo.svg" alt="علي اسماعيل">
+                <link rel="icon" type="image/svg+xml" href="icon.svg">
             </div>
             <h1 class="review-title">شاركني رأيك في خدماتي</h1>
             <form id="reviewForm">
@@ -708,5 +710,50 @@
             }, 3000);
         }
     </script>
+    <!-- إضافة في نهاية كل صفحة قبل إغلاق body -->
+<script>
+    // كود تشويش لحماية الموقع
+    (function(){
+        // منع فتح أدوات المطور
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73)) {
+                e.preventDefault();
+            }
+        });
+
+        // تشويش الكود المصدري
+        const _0x5f2d = [
+            'preventDefault',
+            'contextmenu',
+            'keydown',
+            'ctrlKey',
+            'keyCode',
+            'addEventListener'
+        ];
+        
+        // تشفير الوظائف الأساسية
+        function _0x2b4c() {
+            return Math.random().toString(36).substring(7);
+        }
+        
+        // إضافة متغيرات عشوائية
+        const _0x1f3a = new Date().getTime();
+        const _0x3d5e = window.location.hostname;
+        const _0x4c6f = _0x2b4c();
+        
+        // تشويش إضافي
+        setInterval(() => {
+            console.clear();
+            console.log(_0x2b4c());
+        }, 100);
+        
+        // منع النسخ
+        document.addEventListener('copy', e => e.preventDefault());
+        document.addEventListener('cut', e => e.preventDefault());
+        document.addEventListener('paste', e => e.preventDefault());
+    })();
+</script>
+
 </body>
 </html> 

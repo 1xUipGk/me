@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1001.87 1001.87">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff4d00;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-5 {
+        fill: url(#radial-gradient);
+        opacity: .1;
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-3" width="1001.87" height="1001.87" rx="306.57" ry="306.57"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="cls-3" x="-39.06" y="-39.06" width="1080" height="1080"/>
+    </clipPath>
+    <radialGradient id="radial-gradient" cx="29.44" cy="23.44" fx="29.44" fy="23.44" r="1045.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff4d00"/>
+      <stop offset="1" stop-color="#ff4d00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g class="cls-6">
+      <g>
+        <g class="cls-4">
+          <rect x="-39.06" y="-39.06" width="1080" height="1080"/>
+          <rect class="cls-5" x="-1016.06" y="-1022.06" width="2091" height="2091"/>
+        </g>
+        <path class="cls-2" d="M665.85,258.94h-231.58v252.75h-98.25v-252.75h0c-42.57,0-77.08,34.51-77.08,77.08v329.83c0,42.57,34.51,77.08,77.08,77.08h0v-.03c.4,0,.8.03,1.21.03h174.13v-77.08h-175.34v-77.08h406.92v-77.08h-231.58v-175.67h154.5v96.17h77.08v-96.17h0c0-42.57-34.51-77.08-77.08-77.08Z"/>
+        <path class="cls-1" d="M665.85,742.94h0c42.57,0,77.08-34.51,77.08-77.08h-77.08v77.08Z"/>
+        <rect class="cls-1" x="550.06" y="665.85" width="77.08" height="77.08"/>
+      </g>
+    </g>
+  </g>
+</svg>
