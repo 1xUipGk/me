@@ -4,7 +4,8 @@ import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL, de
 import { getDatabase, ref as dbRef, push, set, onValue, remove, get } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js';
 import firebaseConfig from './firebase-config.js';
 import Analytics from './analytics.js';
-import { Chart } from 'https://cdn.jsdelivr.net/npm/chart.js/+esm';
+import { Chart, registerables } from 'https://cdn.jsdelivr.net/npm/chart.js';
+Chart.register(...registerables);
 
 // تهيئة Firebase
 const app = initializeApp(firebaseConfig);
@@ -389,7 +390,7 @@ function updateStars(rating, container) {
     });
 }
 
-// إضافة استدعاء دالة التهيئة عند تحميل الصفحة
+// إضافة استدعاء دالة التهيئة عند تحميل الص��حة
 document.addEventListener('DOMContentLoaded', () => {
     // الكود الموجود مسبقاً...
     
@@ -442,7 +443,7 @@ async function handleWorkSubmit(e) {
 
     } catch (error) {
         console.error('Error:', error);
-        showMessage('error', error.message || 'حدث خطأ أثناء إضافة العمل');
+        showMessage('error', error.message || 'حدث خط أثناء إضافة العمل');
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fas fa-plus"></i> إضافة عمل';
@@ -997,7 +998,7 @@ document.addEventListener('DOMContentLoaded', () => {
         closeEditTestimonialDialog();
     });
 
-    // إضافة مستمع لإغلاق النوافذ عند النقر خارجها
+    // إضافة مستمع لإغلاق النوافذ ��ند النقر خارجها
     document.getElementById('editDialog')?.addEventListener('click', (e) => {
         if (e.target === e.currentTarget) {
             closeEditDialog();
@@ -1179,3 +1180,53 @@ window.deleteTestimonial = async (testimonialId, name) => {
         showMessage('error', 'حدث طأ غير متوقع');
     }
 };
+
+window.openLightbox = (workId) => {
+    const lightbox = document.getElementById('dashboardLightbox');
+    const lightboxImg = document.getElementById('lightboxImage');
+    const work = document.querySelector(`[data-id="${workId}"]`);
+    
+    if (work) {
+        const img = work.querySelector('.work-image');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+};
+
+window.closeLightbox = () => {
+    const lightbox = document.getElementById('dashboardLightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+};
+
+window.navigateLightbox = (direction) => {
+    const currentWork = document.querySelector(`[data-id="${currentWorkId}"]`);
+    const works = document.querySelectorAll('.work-item');
+    const currentIndex = Array.from(works).indexOf(currentWork);
+    
+    let newIndex;
+    if (direction === 'prev') {
+        newIndex = currentIndex > 0 ? currentIndex - 1 : works.length - 1;
+    } else {
+        newIndex = currentIndex < works.length - 1 ? currentIndex + 1 : 0;
+    }
+    
+    const newWork = works[newIndex];
+    if (newWork) {
+        openLightbox(newWork.dataset.id);
+    }
+};
+
+// تحديث onclick في HTML
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.work-image-container').forEach(container => {
+        container.onclick = (e) => {
+            const workItem = container.closest('.work-item');
+            if (workItem) {
+                openLightbox(workItem.dataset.id);
+            }
+        };
+    });
+});

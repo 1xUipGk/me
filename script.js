@@ -82,32 +82,35 @@ document.addEventListener('DOMContentLoaded', function() {
     startAutoSlide();
 
     // تفعيل زر عرض المزيد
-    document.getElementById('showMoreBtn').addEventListener('click', function() {
-        const hiddenServices = document.querySelectorAll('.hidden-service');
-        const btnText = this.querySelector('span');
-        const btnIcon = this.querySelector('i');
-        
-        hiddenServices.forEach(service => {
-            if (service.style.display === 'none' || !service.style.display) {
-                service.style.display = 'block';
-                service.style.opacity = '0';
-                setTimeout(() => {
-                    service.style.opacity = '1';
-                    service.style.transform = 'translateY(0)';
-                }, 10);
-                btnText.textContent = 'عرض أقل';
-                btnIcon.style.transform = 'rotate(180deg)';
-            } else {
-                service.style.opacity = '0';
-                service.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    service.style.display = 'none';
-                }, 300);
-                btnText.textContent = 'عرض المزيد';
-                btnIcon.style.transform = 'rotate(0deg)';
-            }
+    const showMoreBtn = document.getElementById('showMoreBtn');
+    if (showMoreBtn) {
+        showMoreBtn.addEventListener('click', function() {
+            const hiddenServices = document.querySelectorAll('.hidden-service');
+            const btnText = this.querySelector('span');
+            const btnIcon = this.querySelector('i');
+            
+            hiddenServices.forEach(service => {
+                if (service.style.display === 'none' || !service.style.display) {
+                    service.style.display = 'block';
+                    service.style.opacity = '0';
+                    setTimeout(() => {
+                        service.style.opacity = '1';
+                        service.style.transform = 'translateY(0)';
+                    }, 10);
+                    btnText.textContent = 'عرض أقل';
+                    btnIcon.style.transform = 'rotate(180deg)';
+                } else {
+                    service.style.opacity = '0';
+                    service.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        service.style.display = 'none';
+                    }, 300);
+                    btnText.textContent = 'عرض المزيد';
+                    btnIcon.style.transform = 'rotate(0deg)';
+                }
+            });
         });
-    });
+    }
 
     // تحديث كود التصفية لصفحة الأعمال
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -161,30 +164,52 @@ document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     const closeSidebarBtn = document.getElementById('closeSidebar');
     const overlay = document.getElementById('overlay');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
 
     // فتح القائمة الجانبية
-    menuBtn?.addEventListener('click', () => {
-        sidebar.classList.add('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
+    if (menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            console.log('Menu button clicked'); // للتأكد من عمل الزر
+            if (sidebar && overlay) {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
 
     // إغلاق القائمة الجانبية
     function closeSidebar() {
-        sidebar.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
+        console.log('Closing sidebar'); // للتأكد من عمل الإغلاق
+        if (sidebar && overlay) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     }
 
-    closeSidebarBtn?.addEventListener('click', closeSidebar);
-    overlay?.addEventListener('click', closeSidebar);
+    // إغلاق عند النقر على زر الإغلاق
+    if (closeSidebarBtn) {
+        closeSidebarBtn.addEventListener('click', () => {
+            closeSidebar();
+        });
+    }
 
-    // إغلاق القائمة الجانبية عند النقر على رابط
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', closeSidebar);
+    // إغلاق عند النقر على الخلفية المعتمة
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            closeSidebar();
+        });
+    }
+
+    // إغلاق عند النقر على أي رابط في القائمة
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            closeSidebar();
+        });
     });
 
-    // إغلاق القائمة الجانبية عند الضغط على ESC
+    // إغلاق عند الضغط على ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeSidebar();
