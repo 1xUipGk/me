@@ -2,7 +2,14 @@
 (function(){
     // منع فتح أدوات المطور
     function preventDevTools() {
-        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('contextmenu', e => {
+            // السماح بالنقر بالزر الأيمن في حقول الإدخال
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
+            e.preventDefault();
+        });
+
         document.addEventListener('keydown', e => {
             if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83 || e.keyCode === 73 || e.keyCode === 123)) {
                 e.preventDefault();
@@ -40,10 +47,37 @@
 
     // منع النسخ والتحديد
     function preventCopy() {
-        document.addEventListener('copy', e => e.preventDefault());
-        document.addEventListener('cut', e => e.preventDefault());
-        document.addEventListener('paste', e => e.preventDefault());
-        document.addEventListener('selectstart', e => e.preventDefault());
+        document.addEventListener('copy', e => {
+            // السماح بالنسخ في حقول الإدخال
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
+            e.preventDefault();
+        });
+
+        document.addEventListener('cut', e => {
+            // السماح بالقص في حقول الإدخال
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
+            e.preventDefault();
+        });
+
+        document.addEventListener('paste', e => {
+            // السماح باللصق في حقول الإدخال
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
+            e.preventDefault();
+        });
+
+        document.addEventListener('selectstart', e => {
+            // السماح بالتحديد في حقول الإدخال
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
+            e.preventDefault();
+        });
     }
 
     // منع عرض المصدر
@@ -58,6 +92,10 @@
     // تعطيل الماوس الأيمن
     function disableRightClick() {
         document.addEventListener('contextmenu', function(e) {
+            // السماح بالنقر بالزر الأيمن في حقول الإدخال
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return true;
+            }
             e.preventDefault();
             return false;
         });
@@ -74,6 +112,18 @@
         // رسالة تحذير
         console.log('%cتحذير!', 'color: red; font-size: 30px; font-weight: bold;');
         console.log('%cهذا الموقع محمي ضد محاولات الاختراق والنسخ', 'font-size: 20px;');
+
+        // تتبع محاولات الاختراق
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            Analytics.trackError('js_error', {
+                message: msg,
+                url: url,
+                line: lineNo,
+                column: columnNo,
+                error: error?.stack
+            });
+            return false;
+        };
     }
 
     // تشغيل الحماية
@@ -102,3 +152,8 @@
         removeComments(document.documentElement);
     });
 })(); 
+
+
+
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+  const analytics = getAnalytics();

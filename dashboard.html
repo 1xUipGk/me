@@ -8,944 +8,95 @@
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .dashboard {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-        }
-
-        .dashboard-title {
-            font-size: 24px;
-            color: var(--text);
-        }
-
-        .logout-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 20px;
-        }
-
-        .upload-form {
-            background: var(--card-bg);
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-        }
-
-        .works-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-            padding: 24px;
-        }
-
-        .work-item {
-            position: relative;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-        }
-
-        .work-item:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
-        }
-
-        .work-image-container {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-        }
-
-        .work-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .work-item:hover .work-image {
-            transform: scale(1.1);
-        }
-
-        .work-info {
-            padding: 20px;
-            background: linear-gradient(
-                to top,
-                rgba(0, 0, 0, 0.8),
-                rgba(0, 0, 0, 0.6) 50%,
-                transparent
-            );
-        }
-
-        .work-info h3 {
-            margin: 0 0 8px;
-            font-size: 18px;
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .work-info p {
-            margin: 0;
-            font-size: 14px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .work-info p i {
-            color: var(--primary);
-            font-size: 14px;
-        }
-
-        .work-actions {
-            padding: 16px;
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .action-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .action-btn i {
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .action-btn:hover i {
-            transform: scale(1.1);
-        }
-
-        .edit-btn {
-            background: rgba(76, 175, 80, 0.2);
-            color: #4CAF50;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-        }
-
-        .edit-btn:hover {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .delete-btn {
-            background: rgba(244, 67, 54, 0.2);
-            color: #f44336;
-            border: 1px solid rgba(244, 67, 54, 0.3);
-        }
-
-        .delete-btn:hover {
-            background: #f44336;
-            color: white;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            color: var(--text);
-        }
-
-        .upload-progress {
-            margin-top: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            display: none;
-        }
-
-        .progress-bar {
-            height: 4px;
-            background: var(--primary);
-            width: 0;
-            transition: width 0.3s ease;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-section {
-            background: var(--card-bg);
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
-        }
-
-        .filter-section h2 {
-            margin-bottom: 16px;
-            font-size: 20px;
-            color: var(--text);
-        }
-
-        .filter-btns {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            background: transparent;
-            color: var(--text);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        .filter-btn:hover {
-            background: rgba(255, 77, 0, 0.1);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* تحسين مظهر قائمة الأعمال */
-        .works-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 24px;
-        }
-
-        .work-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .work-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(255, 77, 0, 0.1);
-        }
-
-        .work-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-        }
-
-        .work-info h3 {
-            margin: 0 0 8px;
-            color: var(--text);
-        }
-
-        .work-info p {
-            margin: 0;
-            color: var(--text-secondary);
-        }
-
-        .work-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            padding: 8px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .edit-btn {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .delete-btn {
-            background: #f44336;
-            color: white;
-        }
-
-        /* تحسين التجاوب */
-        @media (max-width: 768px) {
-            .works-list {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-
-            .filter-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-        }
-
-        .message {
-            position: fixed;
-            top: 20px;
-            right: 15px;
-            padding: 16px 24px;
-            border-radius: 8px;
-            display: none;
-            align-items: center;
-            gap: 12px;
-            z-index: 1000;
-        }
-
-        .message.show {
-            display: flex;
-        }
-
-        .success-message {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .error-message {
-            background: #f44336;
-            color: white;
-        }
-
-        .message i {
-            font-size: 20px;
-        }
-        /* تحديث التنسيقات داخل style في dashboard.html */
-
-/* تحسين تنسيق select */
-.form-group select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    color: var(--text);
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: left 12px center;
-    background-size: 16px;
-    padding-left: 40px;
-}
-
-.form-group select:focus {
-    border-color: var(--primary);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.1);
-}
-
-.form-group select option {
-    background: #1a1a1a;
-    color: var(--text);
-    padding: 12px;
-}
-
-/* تحسين التجاوب للهاتف */
-@media (max-width: 768px) {
-    .dashboard {
-        padding: 10px;
-    }
-
-    .dashboard-header {
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .dashboard-title {
-        font-size: 20px;
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .upload-form,
-    .filter-section {
-        padding: 15px;
-    }
-
-    .works-list {
-        padding: 15px;
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .work-item {
-        margin-bottom: 15px;
-    }
-
-    .work-image {
-        height: 180px;
-    }
-
-    .work-info {
-        padding: 12px;
-    }
-
-    .work-actions {
-        padding: 12px;
-    }
-
-    .filter-btns {
-        gap: 6px;
-    }
-
-    .filter-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .form-group label {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group select {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .submit-btn {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .message {
-        left: 10px;
-        right: 10px;
-        padding: 12px 16px;
-    }
-
-    .message i {
-        font-size: 16px;
-    }
-}
-
-/* تحسين تنسي�� input file */
-.form-group input[type="file"] {
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    border: 1px dashed var(--border);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.form-group input[type="file"]:hover {
-    border-color: var(--primary);
-    background: rgba(255, 77, 0, 0.05);
-}
-
-.form-group input[type="file"]::file-selector-button {
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: none;
-    background: var(--primary);
-    color: white;
-    cursor: pointer;
-    margin-left: 10px;
-    transition: all 0.3s ease;
-}
-
-.form-group input[type="file"]::file-selector-button:hover {
-    opacity: 0.9;
-}
-
-/* تحسين تنسيق الرسائل للهاتف */
-@media (max-width: 480px) {
-    .message {
-        bottom: 20px;
-        top: auto;
-        left: 15px;
-        right: 15px;
-        transform: translateY(120%);
-    }
-
-    .message.show {
-        transform: translateY(0);
-    }
-
-    .dashboard-header {
-        flex-direction: column;
-        gap: 10px;
-        align-items: stretch;
-        text-align: center;
-    }
-
-    .logout-btn {
-        width: 100%;
-    }
-
-    .work-item {
-        border-radius: 8px;
-    }
-
-    .work-image {
-        height: 160px;
-    }
-
-    .action-btn {
-        width: 32px;
-        height: 32px;
-    }
-
-    .action-btn i {
-        font-size: 14px;
-    }
-}
-
-/* تحسين تنسيق شريط التقدم */
-.upload-progress {
-    margin-top: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 100px;
-    overflow: hidden;
-    height: 6px;
-}
-
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(45deg, var(--primary), #FF6B00);
-    transition: width 0.3s ease;
-}
-
-/* تحسين تنسيق أزرار */
-.submit-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.submit-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 77, 0, 0.2);
-}
-
-.submit-btn:active:not(:disabled) {
-    transform: translateY(0);
-}
-
-
-
-.testimonials-section h2 {
-    margin-bottom: 24px;
-    color: var(--text);
-}
-
-.rating-input {
-    display: flex;
-    gap: 8px;
-    font-size: 24px;
-    color: #FFD700;
-    cursor: pointer;
-}
-
-.rating-input i {
-    transition: all 0.2s ease;
-}
-
-.rating-input i:hover,
-.rating-input i.fas {
-    transform: scale(1.1);
-}
-
-textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    color: var(--text);
-    resize: vertical;
-}
-
-.testimonials-list {
-    margin-top: 32px;
-}
-
-.testimonials-list h3 {
-    margin-bottom: 16px;
-    color: var(--text);
-}
-
-.testimonial-item {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 16px;
-    align-items: center;
-}
-
-.testimonial-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.testimonial-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.testimonial-avatar i {
-    color: white;
-    font-size: 24px;
-}
-
-.testimonial-content {
-    flex: 1;
-}
-
-.testimonial-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.testimonial-name {
-    font-weight: 600;
-    color: var(--text);
-}
-
-.testimonial-title {
-    color: var(--text-secondary);
-    font-size: 14px;
-}
-
-.testimonial-rating {
-    color: #FFD700;
-    font-size: 14px;
-}
-
-.testimonial-text {
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-.testimonial-actions {
-    display: flex;
-    gap: 8px;
-}
-
-/* تحديث تنسيق قسم التقييمات */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 20px;
-}
-
-.testimonials-section {
-    grid-column: 1 / -1; /* يجعل قسم التقييمات يأخذ العرض الكامل */
-    margin-top: 24px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-}
-
-.testimonial-form-container {
-    background: var(--card-bg);
-    padding: 24px;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-}
-
-.testimonials-list-container {
-    background: var(--card-bg);
-    padding: 24px;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    max-height: 705px;
-    overflow-y: auto;
-}
-
-.testimonial-item {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
-    transition: all 0.3s ease;
-}
-
-.testimonial-item:hover {
-    transform: translateY(-3px);
-    border-color: var(--primary);
-    box-shadow: 0 5px 15px rgba(255, 77, 0, 0.1);
-}
-
-/* تحسين التجاوب */
-@media (max-width: 992px) {
-    .testimonials-section {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* تحديث التنسيقات داخل style */
-
-/* تحسين التجاوب للشاشات المختلفة */
-@media (max-width: 1200px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    .testimonials-section {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .dashboard {
-        padding: 10px;
-    }
-
-    .dashboard-header {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-        padding: 16px;
-    }
-
-    .logout-btn {
-        width: 100%;
-    }
-
-    .works-list {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        padding: 16px;
-        gap: 16px;
-    }
-
-    .work-image-container {
-        height: 180px;
-    }
-
-    .filter-btns {
-        justify-content: center;
-    }
-
-    .filter-btn {
-        font-size: 12px;
-        padding: 6px 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .dashboard-title {
-        font-size: 20px;
-    }
-
-    .works-list {
-        grid-template-columns: 1fr;
-    }
-
-    .work-item {
-        margin-bottom: 16px;
-    }
-
-    .work-info h3 {
-        font-size: 16px;
-    }
-
-    .work-info p {
-        font-size: 12px;
-    }
-
-    .action-btn {
-        width: 32px;
-        height: 32px;
-    }
-
-    .form-group label {
-        font-size: 14px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .testimonial-item {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .testimonial-avatar {
-        margin: 0 auto;
-    }
-}
-
-/* تحسين تنسيق الأزرار والمدخلات للمس */
-@media (hover: none) {
-    .action-btn,
-    .submit-btn,
-    .filter-btn {
-        min-height: 44px; /* تحسين منطقة اللمس */
-    }
-
-    .form-group input,
-    .form-group select {
-        min-height: 44px;
-    }
-
-    .form-group input[type="file"] {
-        padding: 10px;
-    }
-}
-
-/* تحسين القراءة على الشاشات الصغيرة */
-@media (max-width: 360px) {
-    .work-info h3 {
-        font-size: 14px;
-    }
-
-    .work-info p {
-        font-size: 11px;
-    }
-
-    .dashboard-title {
-        font-size: 18px;
-    }
-
-    .filter-btn {
-        font-size: 11px;
-        padding: 5px 10px;
-    }
-}
-
-/* تحسين الأداء على الأجهزة الضعيفة */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-/* تحديث تنسيق نموذج التقييمات */
-.testimonial-form-container .upload-form {
-    background: none;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-}
-
-/* تحديث تنسيق حاوية التقييمات */
-.testimonial-form-container {
-    background: var(--card-bg);
-    padding: 24px;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-}
-
-.testimonial-date {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-}
-
-.testimonial-item {
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="dialog.css">
 </head>
 <body>
     <div class="dashboard">
         <div class="dashboard-header">
             <h1 class="dashboard-title">لوحة التحكم</h1>
-            <button onclick="logout()" class="logout-btn">تسجيل خروج</button>
+            <div class="header-actions">
+                <a href="/" class="visit-site-btn">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>زيارة الموقع</span>
+                </a>
+                <button onclick="logout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>تسجيل خروج</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- إضافة بعد dashboard-header وقبل dashboard-grid -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>المشاهدات</h3>
+                        <div class="stat-value" id="viewsCount">0</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="viewsChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>الزوار</h3>
+                        <div class="stat-value" id="visitorsCount">0</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="visitorsChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>متوسط وقت التصفح</h3>
+                        <div class="stat-value" id="avgTimeCount">0:00</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="avgTimeChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>معدل التفاعل</h3>
+                        <div class="stat-value" id="engagementCount">0%</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span id="engagementChange">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-charts">
+                <div class="chart-card">
+                    <h3>إحصائيات الزيارات</h3>
+                    <canvas id="visitsChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>مصادر الزيارات</h3>
+                    <canvas id="sourcesChart"></canvas>
+                </div>
+            </div>
         </div>
 
         <div class="dashboard-grid">
@@ -1014,7 +165,7 @@ textarea {
                             <input type="text" id="clientName" required placeholder="مثال: محمد العلي">
                         </div>
                         <div class="form-group">
-                            <label>المسمى الوظيفي</label>
+                            <label>لمسمى الوظيفي</label>
                             <input type="text" id="clientTitle" required placeholder="مثال: صاحب مشروع">
                         </div>
                         <div class="form-group">
@@ -1062,20 +213,154 @@ textarea {
         <span></span>
     </div>
 
-    <div class="dashboard-lightbox" id="dashboardLightbox" onclick="closeDashboardLightbox()">
-        <button class="close-lightbox" onclick="event.stopPropagation(); closeDashboardLightbox()">
-            <i class="fas fa-times"></i>
-        </button>
-        <img src="" alt="" id="lightboxImage">
+    <div class="dashboard-lightbox" id="dashboardLightbox">
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image" id="lightboxImage">
+            <div class="lightbox-info">
+                <div class="lightbox-title" id="lightboxTitle"></div>
+                <div class="lightbox-category" id="lightboxCategory">
+                    <i class="fas fa-folder"></i>
+                    <span></span>
+                </div>
+            </div>
+            <button class="lightbox-close" onclick="closeLightbox()">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox('prev')">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-nav lightbox-next" onclick="navigateLightbox('next')">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
 
-    /* إضافة قبل نهاية body */
-<div class="dashboard-lightbox" id="dashboardLightbox" onclick="closeDashboardLightbox()">
-    <button class="close-lightbox" onclick="event.stopPropagation(); closeDashboardLightbox()">
-        <i class="fas fa-times"></i>
-    </button>
-    <img src="" alt="" id="lightboxImage">
-</div>
+
+    <div class="confirm-dialog" id="confirmDialog">
+        <div class="confirm-content">
+            <div class="confirm-icon">
+                <i class="material-icons">warning</i>
+            </div>
+            <h3>تأكيد الحذف</h3>
+            <p>هل أنت متأكد من حذف هذا العنصر؟ لا يمكن التراجع عن هذا الإجراء.</p>
+            <div class="confirm-buttons">
+                <button class="confirm-btn delete" id="confirmDelete">
+                    <i class="material-icons">delete</i>
+                    <span>حذف</span>
+                </button>
+                <button class="confirm-btn cancel" id="cancelDelete">
+                    <i class="material-icons">close</i>
+                    <span>إلغاء</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="edit-dialog" id="editDialog">
+        <div class="edit-content">
+            <div class="edit-header">
+                <h3>تعديل العمل</h3>
+                <button class="close-edit" id="closeEdit">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <form id="editForm" class="edit-form">
+                <div class="form-group">
+                    <label>القسم</label>
+                    <select id="editCategory" required>
+                        <option value="social-media">سوشيال ميديا</option>
+                        <option value="print">فلايرات وبروشورات</option>
+                        <option value="roll-up">رول أب ولافتات</option>
+                        <option value="menu">قوائم طعام</option>
+                        <option value="business-cards">بطاقات شخصية</option>
+                        <option value="book-covers">أغلفة كتب</option>
+                        <option value="invitations">بطاقات دعوة</option>
+                        <option value="certificates">شهادات تقديرية</option>
+                        <option value="advertising">لوحات إعلانية</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>عنوان العمل</label>
+                    <input type="text" id="editTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>تحديث الصورة (اختياري)</label>
+                    <input type="file" id="editImage" accept="image/*">
+                    <div class="current-image">
+                        <img id="currentImage" src="" alt="الصورة الحالية">
+                        <span>الصورة الحالية</span>
+                    </div>
+                    <div class="upload-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+                <div class="edit-buttons">
+                    <button type="submit" class="edit-submit">
+                        <i class="material-icons">save</i>
+                        <span>حفظ التغييرات</span>
+                    </button>
+                    <button type="button" class="edit-cancel" onclick="closeEditDialog()">
+                        <i class="material-icons">close</i>
+                        <span>إلغاء</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="edit-dialog" id="editTestimonialDialog">
+        <div class="edit-content">
+            <div class="edit-header">
+                <h3>تعديل التقييم</h3>
+                <button class="close-edit" id="closeEditTestimonial">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <form id="editTestimonialForm" class="edit-form">
+                <div class="form-group">
+                    <label>اسم العميل</label>
+                    <input type="text" id="editClientName" required>
+                </div>
+                <div class="form-group">
+                    <label>المسمى الوظيفي</label>
+                    <input type="text" id="editClientTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>تحديث الصورة (اختياري)</label>
+                    <input type="file" id="editClientImage" accept="image/*">
+                    <div class="current-image">
+                        <img id="currentTestimonialImage" src="" alt="الصورة الحالية">
+                        <span>الصورة الحالية</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>التقييم</label>
+                    <div class="rating-input" id="editRatingInput">
+                        <i class="far fa-star" data-rating="1"></i>
+                        <i class="far fa-star" data-rating="2"></i>
+                        <i class="far fa-star" data-rating="3"></i>
+                        <i class="far fa-star" data-rating="4"></i>
+                        <i class="far fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="editRating" value="5">
+                </div>
+                <div class="form-group">
+                    <label>نص التقييم</label>
+                    <textarea id="editTestimonialText" required rows="4"></textarea>
+                </div>
+                <div class="edit-buttons">
+                    <button type="submit" class="edit-submit">
+                        <i class="material-icons">save</i>
+                        <span>حفظ التغييرات</span>
+                    </button>
+                    <button type="button" class="edit-cancel" onclick="closeEditTestimonialDialog()">
+                        <i class="material-icons">close</i>
+                        <span>إلغاء</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script type="module" src="dashboard.js"></script>
     <script src="protection.js"></script>
