@@ -155,4 +155,62 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
         }
     }
+
+    // إضافة وظيفة عرض جميع الصور
+    const showAllItem = document.querySelector('.show-all-item');
+    const hiddenItems = document.querySelectorAll('.portfolio-item.hidden');
+    
+    if (showAllItem) {
+        showAllItem.addEventListener('click', function() {
+            // إظهار جميع العناصر المخفية
+            hiddenItems.forEach(item => {
+                item.style.display = 'block';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 10);
+            });
+            
+            // إخفاء زر Show All
+            showAllItem.style.display = 'none';
+        });
+    }
+
+    function createWorkElement(work) {
+        // تحديد نوع نسبة العرض للصورة
+        function getAspectRatio(width, height) {
+            if (width === height) return 'square';
+            if (width > height) return 'landscape';
+            return 'portrait';
+        }
+
+        // إنشاء عنصر العمل
+        const div = document.createElement('div');
+        div.className = 'portfolio-item';
+        
+        // تحديد نسبة العرض بناءً على أبعاد الصورة
+        const img = new Image();
+        img.src = work.imageUrl;
+        img.onload = function() {
+            const aspect = getAspectRatio(this.width, this.height);
+            div.setAttribute('data-aspect', aspect);
+        };
+
+        div.innerHTML = `
+            <div class="portfolio-image-container">
+                <img src="${work.imageUrl}" alt="${work.title}" class="work-image">
+                <div class="portfolio-overlay">
+                    <i class="fas fa-expand view-full"></i>
+                </div>
+            </div>
+            <div class="work-info">
+                <h3>${work.title}</h3>
+                <p>
+                    <i class="fas fa-folder"></i>
+                    ${getCategoryName(work.category)}
+                </p>
+            </div>
+        `;
+        return div;
+    }
 });

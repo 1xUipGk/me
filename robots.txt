@@ -1,22 +1,35 @@
+# 3lismaeel Website Robots.txt
 User-agent: *
 Allow: /
 Allow: /index.html
+Allow: /portfolio
 Allow: /portfolio.html
-Allow: /style.css
-Allow: /logo.svg
+Allow: /financial-policies
 Allow: /financial-policies.html
+Allow: /work-policies
 Allow: /work-policies.html
+Allow: /style.css
+Allow: /images/
+Allow: /logo.svg
+Allow: /icon.svg
 
 # منع فهرسة الصفحات الحساسة
+Disallow: /admin
 Disallow: /admin.html
+Disallow: /dashboard
 Disallow: /dashboard.html
-Disallow: /review.html
 Disallow: /firebase-config.js
 Disallow: /.env
 Disallow: /api/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
 
 # إضافة خريطة الموقع
 Sitemap: https://3lismaeel.xyz/sitemap.xml
 
 # تحديد النطاق
 Host: 3lismaeel.xyz
+
+# Crawl-delay
+Crawl-delay: 10
