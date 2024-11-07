@@ -78,4 +78,27 @@
 
     // تشغيل الحماية
     initProtection();
+
+    // إزالة التعليقات من HTML عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', () => {
+        // إزالة تعليقات HTML
+        const removeComments = (node) => {
+            const walker = document.createTreeWalker(
+                node,
+                NodeFilter.SHOW_COMMENT,
+                null,
+                false
+            );
+
+            const comments = [];
+            while (walker.nextNode()) {
+                comments.push(walker.currentNode);
+            }
+
+            comments.forEach(comment => comment.remove());
+        };
+
+        // تطبيق الإزالة على كامل المستند
+        removeComments(document.documentElement);
+    });
 })(); 
