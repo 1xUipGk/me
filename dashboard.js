@@ -406,7 +406,7 @@ async function handleWorkSubmit(e) {
     
     try {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="material-icons">hourglass_empty</i><span>جاري الإضافة...</span>';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإضافة...';
 
         const category = document.getElementById('category').value;
         const title = document.getElementById('title').value.trim();
@@ -416,10 +416,14 @@ async function handleWorkSubmit(e) {
             throw new Error('جميع الحقول مطلوبة');
         }
 
-        // رفع الصورة
+        // رفع الصورة إلى Imgur
         const base64Image = await convertToBase64(imageFile);
         const imgurResponse = await uploadToImgur(base64Image);
         
+        if (!imgurResponse.success) {
+            throw new Error('فشل رفع الصورة');
+        }
+
         const workData = {
             category,
             title,
@@ -427,7 +431,7 @@ async function handleWorkSubmit(e) {
             createdAt: new Date().toISOString()
         };
 
-        // إضافة العمل إلى Firebase
+        // إضافة العمل إلى Firebase - تحديث استخدام ref
         const worksRef = dbRef(db, 'works');
         const newWorkRef = push(worksRef);
         await set(newWorkRef, workData);
@@ -441,9 +445,17 @@ async function handleWorkSubmit(e) {
         showMessage('error', error.message || 'حدث خطأ أثناء إضافة العمل');
     } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="material-icons">add</i><span>إضافة عمل</span>';
+        submitBtn.innerHTML = '<i class="fas fa-plus"></i> إضافة عمل';
     }
 }
+
+// إضافة مستمع الأحداث للنموذج
+document.addEventListener('DOMContentLoaded', () => {
+    const uploadForm = document.getElementById('uploadForm');
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', handleWorkSubmit);
+    }
+});
 
 // إضافة دالة handleFilter
 function handleFilter(e) {

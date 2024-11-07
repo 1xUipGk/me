@@ -9,17 +9,62 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index" class="logo">
-                <img src="logo.svg" alt="3lismaeel" class="logo-img">
-            </a>
-            <div class="nav-items">
-               <a href="/social" class="contact-btn">تواصل معي</a>
+   <!-- Navbar -->
+<nav class="navbar">
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="logo.svg" alt="3lismaeel" class="logo-img">
+        </a>
+        <div class="nav-links">
+            <a href="/" class="nav-link active">الرئيسية</a>
+            <a href="/portfolio" class="nav-link">أعمالي</a>
+            <div class="nav-dropdown">
+                <button class="nav-dropdown-btn">
+                    السياسات
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="nav-dropdown-content">
+                    <a href="/financial-policies">السياسات المالية</a>
+                    <a href="/work-policies">سياسات العمل</a>
+                </div>
             </div>
         </div>
-    </nav>
+        <div class="nav-actions">
+            <a href="#contact" class="contact-btn">تواصل معي</a>
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <button class="close-sidebar" id="closeSidebar">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="sidebar-nav">
+        <a href="/" class="sidebar-link">
+            <i class="fas fa-home"></i>
+            الرئيسية
+        </a>
+        <a href="/portfolio" class="sidebar-link">
+            <i class="fas fa-images"></i>
+            أعمالي
+        </a>
+        <a href="/financial-policies" class="sidebar-link">
+            <i class="fas fa-money-bill"></i>
+            السياسات المالية
+        </a>
+        <a href="/work-policies" class="sidebar-link">
+            <i class="fas fa-briefcase"></i>
+            سياسات العمل
+        </a>
+    </div>
+</div>
+
+<!-- إضافة بعد Sidebar مباشرة -->
+<div class="overlay" id="overlay"></div>
 
     <div class="policies-page">
         <div class="policies-container">
@@ -62,7 +107,7 @@
                 <!-- القسم الأول: الشعار والوصف -->
                 <div class="footer-brand">
                     <div class="footer-logo">
-                        <link rel="icon" type="image/svg+xml" href="icon.svg">
+                        <img src="logo.svg" alt="3lismaeel" class="logo-img">
                     </div>
                     <p>مصمم جرافيك محترف متخصص في تصميم المطبوعات وتصاميم السوشيال ميديا</p>
                 </div>
@@ -112,5 +157,6 @@
     </footer>
     <!-- إضافة في نهاية كل صفحة قبل إغلاق body -->
     <script src="protection.js"></script>
+    <script src="script.js"></script>
 </body>
 </html> 

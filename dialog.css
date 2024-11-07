@@ -232,16 +232,15 @@
 
 .work-item {
     position: relative;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 16px;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
 }
 
 .work-item:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     border-color: var(--primary);
     box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
 }
@@ -249,93 +248,74 @@
 .work-image-container {
     position: relative;
     width: 100%;
-    height: 280px;
+    height: 220px;
     overflow: hidden;
-    border-radius: 16px 16px 0 0;
-    cursor: pointer;
 }
 
 .work-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.5s ease;
 }
 
-.portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.portfolio-overlay i {
-    color: white;
-    font-size: 24px;
-    transform: scale(0.8);
-    transition: transform 0.3s ease;
-}
-
-.work-image-container:hover .portfolio-overlay {
-    opacity: 1;
-}
-
-.work-image-container:hover .portfolio-overlay i {
-    transform: scale(1);
-}
-
-.work-image-container:hover .work-image {
-    transform: scale(1.1);
+.work-item:hover .work-image {
+    transform: scale(1.05);
 }
 
 .work-info {
     padding: 20px;
     background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.6) 50%,
-        transparent
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.8) 40%,
+        rgba(0, 0, 0, 0.4) 80%,
+        transparent 100%
     );
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .work-info h3 {
-    margin: 0 0 8px;
     font-size: 18px;
     color: var(--text);
+    margin-bottom: 8px;
     font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .work-info p {
-    margin: 0;
-    font-size: 14px;
     color: var(--text-secondary);
+    font-size: 14px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    margin: 0;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .work-info p i {
     color: var(--primary);
-    font-size: 14px;
 }
 
 .work-actions {
-    padding: 16px;
     display: flex;
     gap: 8px;
+    padding: 16px;
+    border-top: 1px solid var(--border);
     justify-content: flex-end;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
 }
 
 .action-btn {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -354,9 +334,9 @@
 }
 
 .edit-btn {
-    background: rgba(76, 175, 80, 0.2);
+    background: rgba(76, 175, 80, 0.1);
     color: #4CAF50;
-    border: 1px solid rgba(76, 175, 80, 0.3);
+    border: 1px solid rgba(76, 175, 80, 0.2);
 }
 
 .edit-btn:hover {
@@ -365,14 +345,75 @@
 }
 
 .delete-btn {
-    background: rgba(244, 67, 54, 0.2);
+    background: rgba(244, 67, 54, 0.1);
     color: #f44336;
-    border: 1px solid rgba(244, 67, 54, 0.3);
+    border: 1px solid rgba(244, 67, 54, 0.2);
 }
 
 .delete-btn:hover {
     background: #f44336;
     color: white;
+}
+
+/* تنسيق الصورة البديلة */
+.fallback-image {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.fallback-image svg {
+    width: 32px;
+    height: 32px;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.work-item:hover .fallback-image {
+    background: rgba(255, 77, 0, 0.05);
+}
+
+.work-item:hover .fallback-image svg {
+    opacity: 0.7;
+}
+
+/* تحسين التجاوب */
+@media (max-width: 768px) {
+    .works-list {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .work-image-container {
+        height: 180px;
+    }
+
+    .work-info h3 {
+        font-size: 16px;
+    }
+
+    .work-info p {
+        font-size: 13px;
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .works-list {
+        grid-template-columns: 1fr;
+    }
+
+    .work-image-container {
+        height: 200px;
+    }
 }
 
 .form-group {
@@ -1576,3 +1617,6 @@ transform: translateY(0);
         justify-content: center;
     }
 }
+
+
+

@@ -155,4 +155,39 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 100);
         }
     }
+
+    // التحكم في القائمة الجانبية
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const closeSidebarBtn = document.getElementById('closeSidebar');
+    const overlay = document.getElementById('overlay');
+
+    // فتح القائمة الجانبية
+    menuBtn?.addEventListener('click', () => {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // إغلاق القائمة الجانبية
+    function closeSidebar() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    closeSidebarBtn?.addEventListener('click', closeSidebar);
+    overlay?.addEventListener('click', closeSidebar);
+
+    // إغلاق القائمة الجانبية عند النقر على رابط
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', closeSidebar);
+    });
+
+    // إغلاق القائمة الجانبية عند الضغط على ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeSidebar();
+        }
+    });
 });

@@ -88,9 +88,10 @@ body::after {
 }
 
 .navbar .container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
+    gap: 24px;
 }
 
 .logo {
@@ -100,10 +101,267 @@ body::after {
     letter-spacing: -0.5px;
 }
 
-.nav-items {
+.nav-links {
     display: flex;
-    gap: 16px;
     align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-link {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 8px 0;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.nav-dropdown-btn i {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-btn i {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.nav-dropdown:hover .nav-dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.nav-dropdown-content a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-dropdown-content a:hover {
+    background: rgba(255, 77, 0, 0.1);
+    color: var(--primary);
+}
+
+/* زر القائمة للهاتف */
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+/* القائمة الجانبية */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.close-sidebar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.3s ease;
+}
+
+.close-sidebar:hover {
+    transform: rotate(90deg);
+}
+
+.sidebar-nav {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-link i {
+    font-size: 20px;
+    width: 24px;
+    text-align: center;
+}
+
+.sidebar-link:hover {
+    background: rgba(255, 77, 0, 0.2);
+    color: var(--primary);
+}
+
+.sidebar-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-dropdown.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    padding: 8px;
+    margin-right: 32px;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+}
+
+.sidebar-dropdown.active .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 77, 0, 0.2);
+    color: var(--primary);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* تجاوب مع الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .nav-link,
+    .nav-dropdown {
+        display: none;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .contact-btn {
+        margin-right: 16px;
+    }
+}
+
+@media (min-width: 769px) {
+    .sidebar {
+        display: none;
+    }
 }
 
 .lang-btn {
@@ -777,7 +1035,7 @@ footer {
     margin: 15px 0 25px 0;
 }
 
-/* تحسين الت��اوب */
+/* تحسين التاوب */
 @media (max-width: 1200px) {
     .testimonials-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -794,7 +1052,7 @@ footer {
     }
 }
 
-/* إضافة تأثيرات الحركة للتقييمات */
+/* إضافة تأثيرات الحرة للتقييمات */
 .testimonial-card {
     /* الأنماط الحالية */
     animation: fadeSlide 0.5s ease-out;
@@ -842,7 +1100,6 @@ footer {
     gap: 16px;
     margin: 40px 0;
     flex-wrap: wrap;
-    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     padding: 16px;
     border-radius: 100px;
@@ -878,16 +1135,118 @@ footer {
     color: var(--text);
 }
 
+/* تحديث تنسيق شبكة الأعمال */
 .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
     gap: 24px;
-    opacity: 1;
-    transition: opacity 0.3s ease;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
 }
 
-.portfolio-grid.fade {
-    opacity: 0;
+.portfolio-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.work-item {
+    min-width: calc(33.333% - 16px);
+    flex: 0 0 calc(33.333% - 16px);
+    scroll-snap-align: start;
+    opacity: 0.7;
+    transform: scale(0.95);
+    transition: all 0.3s ease;
+}
+
+.work-item.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* أزرار التنقل */
+.portfolio-section {
+    position: relative;
+    padding: 0 40px;
+    margin: 40px 0;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+    opacity: 0.7;
+}
+
+.nav-btn:hover {
+    background: #ff6b00;
+    transform: translateY(-50%) scale(1.1);
+    opacity: 1;
+}
+
+.prev-btn {
+    right: 0;
+}
+
+.next-btn {
+    left: 0;
+}
+
+/* تحسين التجاوب */
+@media (max-width: 992px) {
+    .work-item {
+        min-width: calc(50% - 12px);
+        flex: 0 0 calc(50% - 12px);
+    }
+}
+
+@media (max-width: 768px) {
+    .work-item {
+        min-width: calc(100% - 8px);
+        flex: 0 0 calc(100% - 8px);
+    }
+    
+    .portfolio-section {
+        padding: 0 20px;
+    }
+
+    .nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* تحديث تنسيق Skeleton Loading */
+.skeleton-loader {
+    min-width: calc(33.333% - 16px);
+    flex: 0 0 calc(33.333% - 16px);
+    scroll-snap-align: start;
+}
+
+@media (max-width: 992px) {
+    .skeleton-loader {
+        min-width: calc(50% - 12px);
+        flex: 0 0 calc(50% - 12px);
+    }
+}
+
+@media (max-width: 768px) {
+    .skeleton-loader {
+        min-width: calc(100% - 8px);
+        flex: 0 0 calc(100% - 8px);
+    }
 }
 
 .portfolio-item {
@@ -1064,7 +1423,7 @@ textarea:focus {
     box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.1);
 }
 
-/* تحسين مظهر شريط التمرير */
+/* تحسين مظهر شري التمرير */
 textarea::-webkit-scrollbar {
     width: 8px;
 }
@@ -1189,7 +1548,7 @@ textarea::-webkit-scrollbar-thumb:hover {
         text-align: center;
     }
 
-    /* إخفاء قسم الروابط السريعة */
+    /* إخفا قسم الروابط السريعة */
     .footer-links:nth-child(2) {
         display: none;
     }
@@ -1234,7 +1593,7 @@ textarea::-webkit-scrollbar-thumb:hover {
 .client-info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .client-avatar {
@@ -1520,7 +1879,9 @@ textarea::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: none;
     min-height: 300px;
+    border: none;
     gap: 20px;
 }
 
@@ -1681,6 +2042,604 @@ textarea::-webkit-scrollbar-thumb:hover {
         flex: 0 0 calc(100% - 8px);
     }
 }
+
+/* تنسيق قسم الإحصائيات */
+.stats-section {
+    margin-bottom: 40px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 77, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon i {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-info h3 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.stat-change {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-change.positive {
+    color: #4CAF50;
+}
+
+.stat-change.negative {
+    color: #f44336;
+}
+
+.stats-charts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.chart-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.chart-card h3 {
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 24px;
+}
+
+/* تجاوب مع الشاشات الصغيرة */
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+}
+
+/* تنسيق نافذة التأكيد */
+.confirm-dialog {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.confirm-dialog.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.confirm-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 0.3s ease forwards;
+}
+
+.confirm-icon {
+    width: 64px;
+    height: 64px;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.confirm-icon i {
+    font-size: 32px;
+    color: #f44336;
+}
+
+.confirm-content h3 {
+    font-size: 24px;
+    color: var(--text);
+    margin-bottom: 16px;
+}
+
+.confirm-content p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.confirm-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.confirm-btn.delete {
+    background: #f44336;
+    color: white;
+}
+
+.confirm-btn.delete:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+}
+
+.confirm-btn.cancel {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.confirm-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+.error-container i, .no-data i {
+    font-size: 48px;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.error-container p, .no-data p {
+    color: var(--text-secondary);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+    /* أنماط انيميشن اتحميل */
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 300px;
+        gap: 20px;
+    }
+
+
+    /* أنماط خاصة بصفحة الأعمال */
+    .portfolio-page {
+        padding: 120px 0 60px;
+    }
+
+    .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .work-item {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+    }
+
+    .work-image-container {
+        position: relative;
+        width: 100%;
+        height: 220px; /* يمكنك تعديل الارتفاع حسب الحاجة */
+        overflow: hidden;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .work-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .fallback-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 12px 12px 0 0;
+        transition: background-color 0.3s ease;
+    }
+
+    .fallback-image svg {
+        width: 28px;
+        height: 28px;
+        opacity: 0.5;
+        flex-shrink: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .work-item:hover .fallback-image {
+        background: rgba(255, 77, 0, 0.05);
+    }
+
+    .work-item:hover .fallback-image svg {
+        opacity: 0.7;
+    }
+
+    .portfolio-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .portfolio-overlay i {
+        color: white;
+        font-size: 24px;
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+    }
+
+    .work-image-container:hover .portfolio-overlay {
+        opacity: 1;
+    }
+
+    .work-image-container:hover .portfolio-overlay i {
+        transform: scale(1);
+    }
+
+    .work-image-container:hover .work-image {
+        transform: scale(1.1);
+    }
+
+    /* تنسيق Lightbox لعرض الصور */
+    .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1100;
+        backdrop-filter: blur(10px);
+        padding: 40px;
+    }
+
+    .lightbox.active {
+        display: flex;
+        animation: lightboxFadeIn 0.3s ease;
+    }
+
+    .lightbox img {
+        max-width: 90%;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 12px;
+        transform: scale(0.95);
+        opacity: 0;
+        animation: lightboxZoomIn 0.3s ease forwards;
+    }
+
+    .close-lightbox {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .close-lightbox:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+    }
+
+    .close-lightbox i {
+        font-size: 24px;
+    }
+
+    @keyframes lightboxFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes lightboxZoomIn {
+        from {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* تحسين التجاوب */
+    @media (max-width: 768px) {
+        .lightbox {
+            padding: 20px;
+        }
+
+        .close-lightbox {
+            width: 40px;
+            height: 40px;
+            top: 16px;
+            right: 16px;
+        }
+
+        .close-lightbox i {
+            font-size: 20px;
+        }
+    }
+
+    /* تحسين تجربة المستخدم على الأجهزة اللمسية */
+    @media (hover: none) {
+        .close-lightbox {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    .work-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 24px;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.8) 40%,
+            rgba(0, 0, 0, 0.4) 80%,
+            transparent 100%
+        );
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .work-info h3 {
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .work-info p {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin: 0;
+        opacity: 0.9;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .work-item:hover .work-info {
+        transform: translateY(-4px);
+    }
+
+    /* Skeleton Loading Animation */
+    .skeleton-loader {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        height: 320px; /* نفس ارتفاع work-item */
+        animation: fade 1.5s infinite;
+    }
+
+    .skeleton-loader::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent
+        );
+        transform: translateX(-100%);
+        animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-image {
+        width: 100%;
+        height: 220px; /* نفس ارتفاع work-image-container */
+        background: rgba(255, 255, 255, 0.05);
+        margin-bottom: 16px;
+    }
+
+    .skeleton-title {
+        width: 70%;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        margin: 0 16px 12px;
+        border-radius: 4px;
+    }
+
+    .skeleton-category {
+        width: 40%;
+        height: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        margin: 0 16px;
+        border-radius: 4px;
+    }
+
+    @keyframes shimmer {
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    @keyframes fade {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.7;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* تحسين التجاوب */
+    @media (max-width: 768px) {
+        .skeleton-loader {
+            height: 300px;
+        }
+
+        .skeleton-image {
+            height: 200px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .skeleton-loader {
+            height: 280px;
+        }
+
+        .skeleton-image {
+            height: 180px;
+        }
+    }
+
+    /* إخفاء الهيكل العظمي بعد التحميل */
+    .portfolio-grid.loaded .skeleton-loader {
+        display: none;
+    }
+
+
+
+
+
+
+
+
+
+
 
 /* تنسيق قسم الأسئلة الشائعة */
 .faq {
@@ -1858,402 +2817,184 @@ textarea::-webkit-scrollbar-thumb:hover {
     white-space: nowrap;
 }
 
+/* Skeleton Loading للتقييمات */
+.skeleton-testimonial {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    animation: fade 1.5s infinite;
+}
 
-    /* أنماط خاصة بصفحة الأعمال */
-    .portfolio-page {
-        padding: 120px 0 60px;
+.skeleton-testimonial::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    transform: translateX(-100%);
+    animation: shimmer 1.5s infinite;
+}
+
+.skeleton-avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    margin-bottom: 16px;
+}
+
+.skeleton-name {
+    width: 150px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.skeleton-title {
+    width: 100px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.skeleton-rating {
+    width: 100px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.skeleton-text {
+    width: 100%;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+/* تحسين التجاوب */
+@media (max-width: 768px) {
+    .skeleton-testimonial {
+        height: 180px;
     }
 
-    .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 24px;
-        padding: 24px;
-    }
-
-    .work-item {
-        position: relative;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        overflow: hidden;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        backdrop-filter: blur(10px);
-    }
-
-    .work-item:hover {
-        transform: translateY(-8px);
-        border-color: var(--primary);
-        box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1);
-    }
-
-    .work-image-container {
-        position: relative;
-        width: 100%;
-        height: 220px;
-        overflow: hidden;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .work-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-
-    .work-item:hover .work-image {
-        transform: scale(1.1);
-    }
-
-    .work-info {
-        padding: 20px;
-        background: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.8),
-            rgba(0, 0, 0, 0.6) 50%,
-            transparent
-        );
-    }
-
-    .work-info h3 {
-        margin: 0 0 8px;
-        font-size: 18px;
-        color: var(--text);
-        font-weight: 600;
-    }
-
-    .work-info p {
-        margin: 0;
-        font-size: 14px;
-        color: var(--text-secondary);
-    }
-
-    @media (max-width: 768px) {
-        .portfolio-grid {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 16px;
-            padding: 16px;
-        }
-
-        .work-image-container {
-            height: 180px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .portfolio-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .work-image-container {
-            height: 200px;
-        }
-    }
-
-    /* تنسيق المعرض المنبثق */
-    .lightbox {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.9);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        padding: 40px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .lightbox.active {
-        display: flex;
-        opacity: 1;
-    }
-
-    .lightbox img {
-        max-width: 90%;
-        max-height: 90vh;
-        object-fit: contain;
-        border-radius: 8px;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
-    }
-
-    .lightbox.active img {
-        transform: scale(1);
-    }
-
-    .close-lightbox {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: white;
+    .skeleton-avatar {
         width: 40px;
         height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
     }
 
-    .close-lightbox:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(1.1);
+    .skeleton-name {
+        width: 120px;
     }
 
-    @media (max-width: 768px) {
-        .lightbox {
-            padding: 20px;
-        }
-
-        .close-lightbox {
-            top: 10px;
-            right: 10px;
-            width: 36px;
-            height: 36px;
-        }
+    .skeleton-title {
+        width: 80px;
     }
+}
 
-    /* تحسين التجاوب */
-    @media (max-width: 768px) {
-        .portfolio-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+/* إخفاء الهيكل العظمي بعد التحميل */
+.testimonials-container.loaded .skeleton-testimonial {
+    display: none;
+}
+
+/* تأثيرات الحركة */
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
     }
+}
 
-    @media (max-width: 480px) {
-        .portfolio-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    /* أنماط انيميشن التحميل */
-    .loading-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 300px;
-        gap: 20px;
-    }
-
-    .loading-spinner {
-        width: 50px;
-        height: 50px;
-        border: 3px solid var(--border);
-        border-radius: 50%;
-        border-top-color: var(--primary);
-        animation: spin 1s linear infinite;
-    }
-
-    .loading-text {
-        color: var(--text-secondary);
-        font-size: 16px;
-    }
-
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* إخفاء الشبكة أثناء التحميل */
-    .portfolio-grid.loading {
-        display: none;
-    }
-
-    /* تحديث أنماط Lightbox */
-    .portfolio-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        cursor: pointer;
-    }
-
-    .portfolio-overlay i {
-        color: white;
-        font-size: 24px;
-        transform: scale(0.8);
-        transition: transform 0.3s ease;
-    }
-
-    .work-image-container:hover .portfolio-overlay {
+@keyframes fade {
+    0% {
         opacity: 1;
     }
-
-    .work-image-container:hover .portfolio-overlay i {
-        transform: scale(1);
+    50% {
+        opacity: 0.7;
     }
-
-    /* تنسيقات Footer */
-    .footer-links h3 {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: var(--text);
-        position: relative;
-        padding-bottom: 10px;
-    }
-
-    .footer-links h3::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 40px;
-        height: 2px;
-        background: var(--primary);
-    }
-
-    .footer-links ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .footer-links ul li {
-        margin-bottom: 12px;
-    }
-
-    .footer-links ul li a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .footer-links ul li a::before {
-        content: '';
-        width: 6px;
-        height: 6px;
-        background: var(--primary);
-        border-radius: 50%;
-        opacity: 0;
-        transform: scale(0);
-        transition: all 0.3s ease;
-    }
-
-    .footer-links ul li a:hover {
-        color: var(--primary);
-        transform: translateX(-8px);
-    }
-
-    .footer-links ul li a:hover::before {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    @media (max-width: 768px) {
-        .footer-links {
-            text-align: center;
-        }
-
-        .footer-links h3::after {
-            right: 50%;
-            transform: translateX(50%);
-        }
-
-        .footer-links ul li a {
-            justify-content: center;
-        }
-
-        .footer-links ul li a:hover {
-            transform: translateX(0);
-        }
-    }
-
-    /* تنسيق Lightbox للداشبورد */
-    .dashboard-lightbox {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.95);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        padding: 40px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .dashboard-lightbox.active {
-        display: flex;
+    100% {
         opacity: 1;
     }
+}
 
-    .dashboard-lightbox img {
-        max-width: 90%;
-        max-height: 90vh;
-        object-fit: contain;
-        border-radius: 8px;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
+/* تحديث تنسيق حاوية التقييمات */
+.testimonials-container {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+
+.testimonials-container::-webkit-scrollbar {
+    display: none;
+}
+
+.testimonial-card {
+    min-width: calc(33.333% - 16px);
+    flex: 0 0 calc(33.333% - 16px);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    scroll-snap-align: start;
+    opacity: 0.7;
+    transform: scale(0.95);
+}
+
+.testimonial-card.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* تحسين التجاوب */
+@media (max-width: 992px) {
+    .testimonial-card {
+        min-width: calc(50% - 12px);
+        flex: 0 0 calc(50% - 12px);
     }
+}
 
-    .dashboard-lightbox.active img {
-        transform: scale(1);
+@media (max-width: 768px) {
+    .testimonial-card {
+        min-width: calc(100% - 8px);
+        flex: 0 0 calc(100% - 8px);
     }
-
-    .close-lightbox {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
+    
+    .testimonials-slider {
+        padding: 0 20px;
     }
+}
 
-    .close-lightbox:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: scale(1.1);
+/* تحديث تنسيق Skeleton Loading للتقييمات */
+.skeleton-testimonial {
+    min-width: calc(33.333% - 16px);
+    flex: 0 0 calc(33.333% - 16px);
+    scroll-snap-align: start;
+}
+
+@media (max-width: 992px) {
+    .skeleton-testimonial {
+        min-width: calc(50% - 12px);
+        flex: 0 0 calc(50% - 12px);
     }
+}
 
-    @media (max-width: 768px) {
-        .dashboard-lightbox {
-            padding: 20px;
-        }
-
-        .close-lightbox {
-            top: 10px;
-            right: 10px;
-            width: 36px;
-            height: 36px;
-        }
+@media (max-width: 768px) {
+    .skeleton-testimonial {
+        min-width: calc(100% - 8px);
+        flex: 0 0 calc(100% - 8px);
     }
-
-    /* تنسيق الصورة البديلة */
-    .fallback-image {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.02);
-    }
-
-    .fallback-image svg {
-        width: 28px;
-        height: 28px;
-        opacity: 0.5;
-    }
+}
